@@ -5,20 +5,26 @@ const io = require('socket.io')(http);
 const morgan = require('morgan');
 const path = require('path');
 
-app.set('PORT', process.env.PORT || 3000);
+//Aplication Variables
+app.set('port', process.env.PORT || 3000);
 
-app.use(morgan('dev'))
-
+//Server Configuration
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middlewares
+app.use(morgan('dev'))
+
+//Routes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'views', 'index.html'));
 });
 
+//Socket Connection
 io.on('connection', (socket) => {
     console.log('User Connected');
 });
 
-http.listen(app.get('PORT'), () => {
-    console.log('Server on port ' + app.get('PORT'));
+//Starting Server
+http.listen(app.get('port'), () => {
+    console.log('Server on port ' + app.get('port'));
 });
