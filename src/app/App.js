@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
+import socketIOClient, { Socket } from 'socket.io-client';
+const ENDPOINT = 'http://localhost:3000';
 
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            mensaje: 'React',
         }
+        this.connectSocket = this.connectSocket.bind(this);
+        this.connectSocket();
+    }
+
+    connectSocket() {
+        const socket = socketIOClient(ENDPOINT)
+        socket.on('FromApi', data => {
+            this.setState({ mensaje: data });
+        });
     }
 
     render() {
@@ -14,7 +25,7 @@ class App extends Component {
         return (
 
             <div>
-                <h1>Hola Mundo Esto es React</h1>
+                <h1>{this.state['mensaje']}</h1>
             </div>
 
         );

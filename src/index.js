@@ -22,7 +22,11 @@ app.get('/', (req, res) => {
 //Socket Connection
 io.on('connection', (socket) => {
     console.log('User Connected');
+    socket.emit('FromApi', 'Hola Como Estas?')
+
 });
+
+//Emiting Something
 
 //Starting Server
 http.listen(app.get('port'), () => {
