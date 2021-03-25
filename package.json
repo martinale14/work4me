@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "npx nodemon src/index.js"
+    "test": "npx nodemon src/index.js",
+    "react": "npx webpack build --watch"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,13 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-react-transform": "^3.0.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "react": "^17.0.2",

@@ -1,4 +1,4 @@
-import react, { Component } from 'react';
+import React, { Component } from 'react';
 
 class App extends Component {
 
@@ -14,7 +14,7 @@ class App extends Component {
         return (
 
             <div>
-                <h1>Hola Mundo</h1>
+                <h1>Hola Mundo Esto es React</h1>
             </div>
 
         );
@@ -22,3 +22,5 @@ class App extends Component {
     }
 
 }
+
+export default App;
