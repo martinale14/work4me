@@ -26,8 +26,6 @@ io.on('connection', (socket) => {
 
 });
 
-//Emiting Something
-
 //Starting Server
 http.listen(app.get('port'), () => {
     console.log('Server on port ' + app.get('port'));
