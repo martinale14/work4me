@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>712</x>
+      <y>544</y>
+      <w>168</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>ASPIRANTE
+-
+identificacion: texto &lt;&lt;PK&gt;&gt;
+nombre1: texto
+nombre2: texto [0..1]
+apellido1: texto
+apellido2: texto [0..1]
+fechaNacimiento: fecha
+fotoPerfil: archivo
+correo: texto
+contrasenia: texto
+telefono: texto
+descripcion: texto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>72</x>
+      <y>280</y>
+      <w>168</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>EMPRESA
+-
+nit: texto &lt;&lt;PK&gt;&gt;
+nombreEmpresa: texto
+logo: archivo
+nombre1_Representante: texto
+nombre2_Representante: texto
+apellido1_Representante: texto
+apellido2_Representante: texto
+descripcion: texto
+correoEmpresarial: texto
+telefono: texto
+contrasenia: texto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>544</y>
+      <w>168</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>SOLICITA
+-
+idSolicitud: entero &lt;&lt;PK&gt;&gt;
+fechaSolicitud: fecha
+aprobado: booleano
+hojaVida: archivo</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>280</y>
+      <w>168</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>VACANTE
+-
+idVacante: entero &lt;&lt;PK&gt;&gt;
+descripcion: texto
+fechaPublicacion: fecha
+salario: flotante
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>712</x>
+      <y>280</y>
+      <w>168</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>CIUDAD
+-
+idCiudad: entero &lt;&lt;PK&gt;&gt;
+nombreCiudad: texto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>24</y>
+      <w>168</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>CATEGORIA
+-
+idCategoria: entero&lt;&lt;PK&gt;&gt;
+nombreCategoria: texto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>232</x>
+      <y>304</y>
+      <w>176</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=1..*
+lanza &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>104</y>
+      <w>128</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..*
+m2=1..1
+clasifica
+ v
+</panel_attributes>
+    <additional_attributes>10.0;260.0;90.0;260.0;90.0;10.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>368</y>
+      <w>176</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..*
+m2=1..1
+&lt; ubica</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>872</x>
+      <y>376</y>
+      <w>120</w>
+      <h>272</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=0..*
+localiza
+ v</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0;80.0;310.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>608</y>
+      <w>176</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..*
+m2=1..1
+&lt; quiere
+</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>296</x>
+      <y>376</y>
+      <w>112</w>
+      <h>272</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=1..*
+es
+ v</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0;10.0;310.0;120.0;310.0</additional_attributes>
+  </element>
+</diagram>
