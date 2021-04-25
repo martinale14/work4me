@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import socketIOClient, { Socket } from 'socket.io-client';
-const ENDPOINT = 'http://localhost:3000';
+import socketIOClient from 'socket.io-client';
+const ENDPOINT = 'http://192.168.20.64:3000';
 
 class App extends Component {
 
@@ -14,7 +14,12 @@ class App extends Component {
     }
 
     connectSocket() {
-        const socket = socketIOClient(ENDPOINT)
+        const socket = socketIOClient(ENDPOINT, {
+            withCredentials: true,
+            extraHeaders: {
+                "my-custom-header": "abcd"
+            }
+        })
         socket.on('FromApi', data => {
             this.setState({ mensaje: data });
         });
