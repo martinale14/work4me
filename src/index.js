@@ -4,11 +4,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http, {
     cors: {
         origin: '*',
-        methods: ["GET", "POST", "DELETE", "PUT"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
     }
-
 });
 
 const morgan = require('morgan');
@@ -22,14 +18,15 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middlewares
-app.use(morgan('dev'))
+app.use(morgan(':method :url :status'));
+app.use(cors());
 
 //Routes
-app.use(cors(), require('./routes/main'));
+app.use(require('./routes/main'));
 
 //Socket Connection
 io.on('connection', (socket) => {
-    console.log('User Connected');
+    console.log(`User ${socket.id} connected`);
     socket.emit('FromApi', 'Hola Como Estas?')
 
 });

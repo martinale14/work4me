@@ -14,13 +14,9 @@ class App extends Component {
     }
 
     connectSocket() {
-        const socket = socketIOClient(ENDPOINT, {
-            withCredentials: true,
-            extraHeaders: {
-                "my-custom-header": "abcd"
-            }
-        })
+        const socket = socketIOClient(ENDPOINT);
         socket.on('FromApi', data => {
+            console.log(socket.socket.sessionid);
             this.setState({ mensaje: data });
         });
     }
