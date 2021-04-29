@@ -1,0 +1,24 @@
+.labels{
+    color: rgb(80, 80, 80);
+    font-size: 22px;
+}
+
+.inputs{
+    border-color: rgb(80, 80, 80);
+    color:rgb(163, 163, 163);
+    justify-self: center;
+    font-size: 22px;
+}
+
+.inputCont{
+    width: calc(100% - 48px);
+
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label{
+    color:#0256FA;
+}
+
+.mdl-textfield__label:after{
+    background-color:#0256FA;
+}

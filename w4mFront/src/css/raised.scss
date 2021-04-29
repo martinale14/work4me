@@ -1,0 +1,12 @@
+.btn2{
+    border-radius: 25px;
+    height: 50px;
+    color: #0256FA;
+    font-family: poppinsMedium;
+    font-size: 20px;
+
+    &:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

@@ -1,1 +1,3 @@
-node_modules
+# dependencies
+/w4mBack/node_modules
+/w4mFront/node_modules
