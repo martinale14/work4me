@@ -2,14 +2,15 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
+    // Cross Origin Resource Sharing
     cors: {
         origin: '*',
     }
 });
-
+const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
-const cors = require('cors');
+
 
 //Aplication Variables
 app.set('port', process.env.PORT || 3000);

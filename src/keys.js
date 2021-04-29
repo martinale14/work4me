@@ -2,10 +2,10 @@ module.exports = {
 
     database: {
 
-        host: 'localhost',
-        user: 'work4me_Admin',
-        password: 'Work4me@',
-        database: 'work4me'
+        host: 'localhost',  // Server URL
+        user: 'work4me_Admin', // Server User
+        password: 'Work4me@', // Server Password
+        database: 'work4me' // Database Name
 
     }
 
