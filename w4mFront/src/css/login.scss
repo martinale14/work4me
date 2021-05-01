@@ -1,3 +1,24 @@
+.body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > #imgCont{
+        position: absolute;
+        z-index: 1;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    & > #imgCont > img{
+        width: 100%;
+        transform: scale(1.2);
+    }
+}
+
 .maincito{
     width: 30%;
     height: 70%;
@@ -5,14 +26,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px;
+    padding: 1.5% 3% 3% 3%;
     border-radius: 10px;
     border: 1px solid #0256FA;
+    z-index: 2;
 
     & > Button{
         width: 80% !important;
-        margin-top: auto;
-        height: 10%;
+        height: 10% !important;
     }
 
     & > .inp{
@@ -23,22 +44,20 @@
 }
 
 .container{
-    height: 85px;
-    width: 358px;
+    height: 18%;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
 .logo{
-    width: 85px;
-    height: 91px;
+    width: 24%;
     padding-top: 10px;
 }
 
 .logoWord{
-    width: 257px;
-    height: 68px;
+    width: 72%;
     padding-top: 10px;
 }
 
@@ -57,4 +76,5 @@
     font-size: 20px;
     color:rgb(163, 163, 163);
     margin-top: auto;
+    text-align: center;
 }
