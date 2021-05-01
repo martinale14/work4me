@@ -2,3 +2,8 @@
     font-family: poppinsMedium;
     src: url(./assets/Poppins/Poppins-Regular.ttf);
 }
+
+@font-face {
+    font-family: poppinsMediumBold;
+    src: url(./assets/Poppins/Poppins-Medium.ttf);
+}

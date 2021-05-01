@@ -1,6 +1,6 @@
 .maincito{
-    width: 576px;
-    height: 620px;
+    width: 30%;
+    height: 70%;
     background-color: rgb(30, 30, 30);
     display: flex;
     flex-direction: column;
@@ -8,6 +8,18 @@
     padding: 40px;
     border-radius: 10px;
     border: 1px solid #0256FA;
+
+    & > Button{
+        width: 80% !important;
+        margin-top: auto;
+        height: 10%;
+    }
+
+    & > .inp{
+        width: calc(100% - 48px) !important;
+        margin: 15px 0px !important;
+    }
+
 }
 
 .container{

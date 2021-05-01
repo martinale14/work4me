@@ -1,8 +1,11 @@
-.btn{
-    width: 470px;
-    height: 70px;
-    border-radius: 40px;
-    background: linear-gradient(135deg, #0256FA,#0256FA);
-    font-family: poppinsMedium;
-    font-size: 28px;
+.MuiButton-text {
+    padding: 0px 0px;
+    font-family: poppinsMedium !important;
+    font-size: 20px !important;
+}
+
+.MuiButtonBase-root {
+    color: white !important;
+    border-radius: 50px !important;
+    background-color: #0256FA !important;
 }

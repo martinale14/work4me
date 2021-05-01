@@ -3,22 +3,35 @@
     font-size: 22px;
 }
 
-.inputs{
+#inputs{
     border-color: rgb(80, 80, 80);
     color:rgb(163, 163, 163);
     justify-self: center;
-    font-size: 22px;
+    font-size: 10px;
+    width: 100px;
 }
 
-.inputCont{
-    width: calc(100% - 48px);
+.MuiInput-underline:before{
+    border-bottom: 2px solid rgb(80, 80, 80) !important;
+  }
 
+.MuiInput-input{
+    color: white !important;
+    font-family: poppinsMedium !important;
+    font-size: xx-large !important;
+    width: 100% !important;
 }
 
-.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label{
-    color:#0256FA;
+.MuiInput-underline:after {
+    border-bottom: 2px solid rgba(2, 86, 250) !important;
 }
 
-.mdl-textfield__label:after{
-    background-color:#0256FA;
+.MuiInputLabel-root{
+    color: rgb(80, 80, 80) !important;
+    font-family: poppinsMedium !important;
+    font-size: 22px !important;
+}
+
+.MuiInputLabel-shrink{
+    color: rgb(2, 85, 250) !important;
 }

@@ -3,13 +3,13 @@ import logo from '../assets/w4mLogo.png';
 import name from '../assets/w4mLogoWords.png';
 import "../css/login.scss";
 import Input from '../components/Input';
-import Button from '../components/Button';
+import Btn from '../components/Btn';
 import RaisedButton from '../components/RaisedButton';
 
 export default class Login extends Component {
   render() {
     return (
-      <div className="demo-card-square mdl-card maincito">
+      <div className="maincito">
         <div className="container">
           <img
             className="logo"
@@ -26,11 +26,11 @@ export default class Login extends Component {
           Sign in
         </h2>
         <br />
-        <Input id="Email" type="text" placeholder="Email address" />
-        <Input id="Password" type="password" placeholder="Password" />
+        <Input id="Email" type="text" placeholder="Email address" className="inp"/>
+        <Input id="Password" type="password" placeholder="Password" className="inp"/>
         <br />
         <br />
-        <Button text="Sign in" onClick={() => {
+        <Btn text="Sign in" onClick={() => {
           console.log('Button was clicked.');
         }} />
         <br />
