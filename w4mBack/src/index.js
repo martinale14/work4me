@@ -10,7 +10,12 @@ const io = require('socket.io')(http, {
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+const session = require('express-session');
+const passport = require('passport');
+const { database } = require('./keys');
 
+require('./lib/candidateSt');
+require('./lib/companieSt');
 
 //Aplication Variables
 app.set('port', process.env.PORT || 3000);
@@ -20,16 +25,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Middlewares
 app.use(morgan(':method :url :status'));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(session({
+    secret: 'work4meSession',
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cors());
 
 //Routes
 app.use(require('./routes/main'));
+app.use(require('./routes/authentications'));
 
 //Socket Connection
 io.on('connection', (socket) => {
     console.log(`User ${socket.id} connected`);
-    socket.emit('FromApi', 'Hola Como Estas?')
-
 });
 
 //Starting Server
