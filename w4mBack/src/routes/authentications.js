@@ -2,14 +2,23 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-router.post('/candidates', (req, res, next) => {
+router.post('/login', (req, res, next) => {
 
     console.log(req.body);
 
-    passport.authenticate('candidates', {
+    passport.authenticate('local.login', (err, usr) => {
 
-        successRedirect: '/succes',
-        failureRedirect: '/falla'
+        if (err) { return next(err); };
+
+        if (!usr) { return res.json({ msg: 'Algo salio mal ...' }); };
+
+        req.logIn(usr, (err) => {
+
+            if (err) { return next(err); };
+
+            return res.json({ msg: 'Conectado' });
+
+        });
 
     })(req, res, next);
 

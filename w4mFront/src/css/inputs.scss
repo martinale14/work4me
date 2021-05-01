@@ -3,12 +3,12 @@
     font-size: 22px;
 }
 
-#inputs{
-    border-color: rgb(80, 80, 80);
-    color:rgb(163, 163, 163);
-    justify-self: center;
-    font-size: 10px;
-    width: 100px;
+.inputs{
+    border-color: rgb(80, 80, 80) !important;
+    color:rgb(163, 163, 163) !important;
+    justify-self: center !important;
+    font-size: 10px !important;
+    width: 100px !important;
 }
 
 .MuiInput-underline:before{

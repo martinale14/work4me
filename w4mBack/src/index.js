@@ -14,11 +14,10 @@ const session = require('express-session');
 const passport = require('passport');
 const { database } = require('./keys');
 
-require('./lib/candidateSt');
-require('./lib/companieSt');
+require('./lib/passport');
 
 //Aplication Variables
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 
 //Server Configuration
 app.use(express.static(path.join(__dirname, 'public')));

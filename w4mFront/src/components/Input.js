@@ -8,10 +8,12 @@ export default class Input extends Component {
 
     render() {
         return (
-            <TextField id="inputs" 
-            type={this.props.type} 
-            label={this.props.placeholder} 
-            className={this.props.className} />
+            <TextField id={this.props.id}
+                type={this.props.type}
+                label={this.props.placeholder}
+                className={`inputs ${this.props.className}`}
+                onChange={this.props.onChange}
+                value={this.props.value} autoComplete='off' />
         );
     }
 }
