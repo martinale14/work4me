@@ -1,0 +1,190 @@
+@function colorRgb($c){
+    @return  rgb($c,$c,$c);
+}
+
+@function gradient($c){
+    @return linear-gradient(135deg, colorRgb($c), colorRgb($c))
+}
+
+.grid{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 12.4% 1fr;
+
+    & > div{
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+}
+
+.nav-bar{
+    grid-column: 1/3;
+    background-color: colorRgb(30);
+    align-items: center;
+    justify-content: flex-end;
+
+    & > img{
+        height: 70%;
+        margin-left: 2%;
+        margin-right: auto;
+    }
+
+    & > Button{
+        width: 10% !important;
+        height: 48% !important;
+        font-size: 90% !important;
+        margin-right: 2% !important;
+    }
+
+}
+
+.back{
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    
+    & > #back{
+        width: 100%;
+        position: relative;
+        z-index: 0;
+    }
+
+    & > .title{
+        width: 50% !important;
+        align-self: center;
+    }
+
+    & > div{
+        width: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        & > h1{
+            font-family: poppinsMediumBold;
+            text-align: center;
+            font-size: 150%;
+            color: white;
+        }
+
+        & > h2{
+            font-family: poppinsMediumBold;
+            font-size: 30px;
+            color: colorRgb(163);
+            text-align: center;
+            margin-top: 0;
+        }
+
+        & > Button{
+            margin-top: 20px;
+            width: 20%;
+            height: 70px;
+        }
+
+    }
+
+}
+
+.reg{
+
+    height: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 15% repeat(6, 10.8%) 20%;
+    align-content: center;
+    justify-items: center;
+
+    & > .inp{
+        width: calc(100% - 60px) !important;
+        margin: 0px 5% !important;
+        position: relative !important;
+    }
+
+    & > .pic{
+        grid-column: 1/5 !important;
+        align-self: center;
+        justify-self: center;
+    }
+
+    & > .left{
+        grid-column: 1/3 !important;
+        align-self: center;
+        justify-self: center;
+
+        & .MuiButtonBase-root {
+            color: colorRgb(80) !important;
+            border-radius: 50px !important;
+            background-color: transparent !important;
+        }
+    }
+
+    & > .right{
+        grid-column: 3/5 !important;
+        align-self: center;
+        justify-self: center;
+
+        & .MuiButtonBase-root {
+            color: colorRgb(80) !important;
+            border-radius: 50px !important;
+            background-color: transparent !important;
+        }
+
+    }
+
+    & > .down{
+        grid-column: 1/4 !important;
+        align-self: center;
+        justify-self: center;
+    }
+
+    & > .submit{
+        grid-column: 1/5 !important;
+        align-self: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        & Button{
+            width: 40%;
+        }
+
+    }
+
+}
+
+.signIn{
+    transition: background-color 0.3s ease-out;
+    background: transparent;
+    background-color: colorRgb(30) !important;
+    box-shadow: none;
+
+    &:hover{
+        background-color: colorRgb(40) !important;
+    }
+}
+
+.select{
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+
+    & .app{
+        background-color: rgba(255, 255, 255, 1) !important;
+        padding: 10px 30px;
+        font-size: 15px !important;
+        color: black !important;
+    }
+
+    & .comp{
+        background-color: rgba(255, 255, 255, .18) !important;
+        padding: 10px 30px;
+        font-size: 15px !important;
+        color: white !important;
+    }
+
+}

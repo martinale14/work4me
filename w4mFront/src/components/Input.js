@@ -13,7 +13,10 @@ export default class Input extends Component {
                 label={this.props.placeholder}
                 className={`inputs ${this.props.className}`}
                 onChange={this.props.onChange}
-                value={this.props.value} autoComplete='off' />
+                value={this.props.value} autoComplete='off'
+                InputLabelProps={{
+                    shrink: this.props.shrink,
+                  }} />
         );
     }
 }

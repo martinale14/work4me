@@ -13,6 +13,7 @@
 
 .MuiInput-underline:before{
     border-bottom: 2px solid rgb(80, 80, 80) !important;
+    width: 100% !important;
   }
 
 .MuiInput-input{
@@ -33,6 +34,14 @@
     font-size: 22px !important;
 }
 
-.MuiInputLabel-shrink{
-    color: rgb(2, 85, 250) !important;
+/* .MuiInputLabel-shrink{
+    color: rgb(2, 86, 250) !important;
+} */
+
+.MuiInputBase-root {
+    width: 100% !important;
+}
+
+.Mui-focused{
+    color: rgb(2, 86, 250) !important;
 }

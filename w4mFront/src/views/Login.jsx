@@ -40,7 +40,7 @@ export default class Login extends Component {
           <br />
           <h2 className='title'>
             Sign in
-        </h2>
+          </h2>
           <Input id="Email" type="text" placeholder="Email address" className="inp" onChange={(data) => { this.setState({ email: data.target.value }); }} value={this.state.email} />
           <Input id="Password" type="password" placeholder="Password" className="inp" onChange={(data) => { this.setState({ password: data.target.value }); }} value={this.state.password} />
           <br />
