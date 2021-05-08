@@ -1,6 +1,7 @@
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const pool = require('../database');
+const bcrypt = require('bcrypt');
 
 var user = {};
 
@@ -18,18 +19,28 @@ passport.use('local.login', new Strategy({
 
         user = rows[0];
 
-        if (password == user.password) {
+        bcrypt.compare(password, user.password, (err, result) => {
 
-            req.session.user = user;
-            console.log(`${req.session.user.name1} ha ingresado`);
-            done(null, user);
+            if (err) {
+                done(null, false);
+            }
 
-        } else {
+            if (result) {
 
-            console.log('Contraseña Incorrecta');
-            done(null, false);
+                req.session.user = user;
+                console.log(`${req.session.user.name1} ha ingresado`);
+                done(null, user);
 
-        }
+            } else {
+
+                console.log('Contraseña Incorrecta');
+                done(null, false);
+
+            }
+
+
+
+        });
 
 
     } else {

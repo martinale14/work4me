@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
 });
 
 // Test Routes
-router.get('/categories', async (req, res) => {
+router.get('/cities', async (req, res) => {
 
-    const data = await pool.query('SELECT * FROM CATEGORIES');
+    const data = await pool.query('SELECT * FROM cities');
 
     res.json(data);
 

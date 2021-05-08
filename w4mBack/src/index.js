@@ -36,8 +36,9 @@ app.use(passport.session());
 app.use(cors());
 
 //Routes
-app.use(require('./routes/main'));
-app.use(require('./routes/authentications'));
+app.use(require('./routes/main.routes'));
+app.use(require('./routes/authentications.routes'));
+app.use('/register/candidate', require('./routes/registerApplicant.routes'));
 
 //Socket Connection
 io.on('connection', (socket) => {
