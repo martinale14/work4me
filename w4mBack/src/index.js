@@ -39,6 +39,7 @@ app.use(cors());
 app.use(require('./routes/main.routes'));
 app.use(require('./routes/authentications.routes'));
 app.use('/register/candidate', require('./routes/registerApplicant.routes'));
+app.use('/register/company', require('./routes/registerCompany.routes'));
 
 //Socket Connection
 io.on('connection', (socket) => {

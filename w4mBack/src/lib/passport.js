@@ -51,18 +51,23 @@ passport.use('local.login', new Strategy({
 
             user = rows[0];
 
-            if (password == user.password) {
+            bcrypt.compare(password, user.password, (err, result) => {
 
-                req.session.user = user;
-                console.log(`${user.nameCompany} ha ingresado`);
-                done(null, user);
+                if (result) {
 
-            } else {
+                    req.session.user = user;
+                    console.log(`${user.nameCompany} ha ingresado`);
+                    done(null, user);
 
-                console.log('Contraseña Incorrecta');
-                done(null, false);
+                } else {
 
-            }
+                    console.log('Contraseña Incorrecta');
+                    done(null, false);
+
+                }
+
+            });
+
 
         } else {
 
