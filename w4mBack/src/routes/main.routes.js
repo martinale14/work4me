@@ -17,4 +17,20 @@ router.get('/cities', async (req, res) => {
 
 });
 
+router.get('/:id', async (req, res) => {
+
+    const data = await pool.query('SELECT * FROM candidates WHERE idCandidate = ?', [req.params.id]);
+
+    if (data.length > 0) {
+
+        res.json(data[0]);
+
+    } else {
+
+        res.json({ msg: 'no hay datos' });
+
+    }
+
+});
+
 module.exports = router;

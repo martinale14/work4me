@@ -30,8 +30,9 @@ router.post('/', async (req, res) => {
          email,
          password,
          phoneNumber,
+         profilePic,
          idCityfk)`.replaceAll(' ', '') +
-        ` VALUES(?,?,?,?,?,?,?,?,?,?);`
+        ` VALUES(?,?,?,?,?,?,?,?,?,?,?);`
 
     sql = sql.replace(/(\r\n|\n|\r)/gm, "");
 
@@ -47,7 +48,8 @@ router.post('/', async (req, res) => {
 
             await pool.query(sql,
                 [user.id, user.birthday, user.name[0], user.name[1], user.lastName[0],
-                user.lastName[1], user.email, user.password, user.phoneNumber, parseInt(user.idCity)]
+                user.lastName[1], user.email, user.password, user.phoneNumber, user.imageData,
+                parseInt(user.idCity)]
             );
 
             const transporter = nodemailer.createTransport({
@@ -77,6 +79,8 @@ router.post('/', async (req, res) => {
         }
 
     } catch (err) {
+
+        console.log(err);
 
         if (err.code === 'ER_DUP_ENTRY') {
 

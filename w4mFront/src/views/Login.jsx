@@ -50,7 +50,7 @@ export default class Login extends Component {
           <div className="link">
             Don't you have an account? &nbsp;
             <RaisedButton text="Click here" onClick={() => {
-              console.log('The link was clicked.');
+              this.props.history.push('/register');
             }} />
           </div>
         </div>

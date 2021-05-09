@@ -121,6 +121,7 @@
             border-radius: 50px !important;
             background-color: transparent !important;
         }
+
     }
 
     & > .right{
@@ -187,4 +188,14 @@
         color: white !important;
     }
 
+}
+
+.MuiPickersBasePicker-container button{
+    background-color: transparent !important; 
+    color: colorRgb(17) !important; 
+  }
+
+.MuiDialogActions-root button{
+    background-color: transparent !important; 
+    color: colorRgb(17) !important; 
 }
