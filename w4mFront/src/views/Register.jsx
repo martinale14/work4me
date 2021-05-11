@@ -51,7 +51,9 @@ export default class Register extends React.Component {
         this.dropArea.addEventListener('drop', (event) => {
             event.stopPropagation();
             event.preventDefault();
-            this.setState({ imagePreview: URL.createObjectURL(event.dataTransfer.files[0]) });
+            let file = event.dataTransfer.files[0];
+            this._imageData = file;
+            this.setState({ imagePreview: URL.createObjectURL(file) });
 
         })
 
