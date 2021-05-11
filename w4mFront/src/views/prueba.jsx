@@ -14,7 +14,7 @@ export default class Prueba extends Component {
 
     fetchPhoto = () => {
 
-        fetch(`${link}/1193581153`)
+        fetch(`${link}/${this.props.match.params.id}`)
             .then(res => res.json())
             .then(data => {
 
