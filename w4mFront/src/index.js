@@ -5,6 +5,7 @@ import Index from './views/Index'
 import Register from './views/Register'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Prueba from './views/prueba';
+import React from 'react';
 
 ReactDOM.render(
 
@@ -14,6 +15,7 @@ ReactDOM.render(
     <Route exact path="/register" component={Register} />
     <Route exact path="/prueba/:id" component={Prueba} />
   </Router>,
+
 
   document.getElementById('root')
 );
