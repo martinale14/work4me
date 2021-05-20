@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import './index.css';
 import Login from './views/Login'
+import Home from './views/Home'
 import Index from './views/Index'
 import Register from './views/Register'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
@@ -14,6 +15,7 @@ ReactDOM.render(
     <Route exact path="/login" component={Login} />
     <Route exact path="/register" component={Register} />
     <Route exact path="/prueba/:id" component={Prueba} />
+    <Route exact path="/Home" component={Home} />
   </Router>,
 
 

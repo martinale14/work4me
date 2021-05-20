@@ -1,0 +1,75 @@
+@function colorRgb($c){
+    @return  rgb($c,$c,$c);
+}
+
+@function gradient($c){
+    @return linear-gradient(135deg, colorRgb($c), colorRgb($c))
+}
+
+.home-card{
+    margin-top: 4%;
+    width: 90%;
+    height: 35%;
+    border: 2px solid colorRgb(50);
+    border-radius: 8px;
+}
+
+.picture{
+    margin-left: 2%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+
+    & > .comp-name{
+        width: 80%;
+        margin: 0px 0px 0px 1.5%;
+        color: colorRgb(200);
+        font-family: poppinsMediumBold;
+        font-size: 16px;
+    }
+}
+
+.job{
+    margin-left: 2%;
+    margin-top: 1%;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+
+    & p{
+        font-family: poppinsMedium;
+        color: colorRgb(160);
+        font-size: 14px;
+    }
+
+    & > .job2{
+        margin: 0px 1.5% 0px 0px;
+    }
+
+    & > .salary{
+        margin: 0px 1.5% 0px 0px;
+    }
+
+}
+
+.description{
+    margin: 1% 2% 1% 2%;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+
+    & p{
+        font-family: poppinsMedium;
+        color: colorRgb(100);
+        font-size: 14px;
+        margin: 0px;
+    }
+
+    & .see{
+        border-radius: 25px;
+        color: colorRgb(160);
+        font-size: 14px !important;
+    }
+
+}

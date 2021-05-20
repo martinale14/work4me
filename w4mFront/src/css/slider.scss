@@ -1,0 +1,22 @@
+@function colorRgb($c){
+    @return  rgb($c,$c,$c);
+}
+
+p{
+    font-family: poppinsMedium;
+    color: colorRgb(100);
+    font-size: 20px;
+    margin: 0px 0px 5px 0px;
+}
+
+.range{
+    margin-top: 10px;
+}
+
+.values{
+    width: 99% !important;
+}
+
+.MuiGrid-item{
+    width: 45% !important;
+}

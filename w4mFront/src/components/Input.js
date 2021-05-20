@@ -14,6 +14,9 @@ export default class Input extends Component {
                 className={`inputs ${this.props.className}`}
                 onChange={this.props.onChange}
                 value={this.props.value} autoComplete='off'
+                inputProps={
+                    {readOnly: this.props.readOnly,}
+                }
                 InputLabelProps={{
                     shrink: this.props.shrink,
                   }} />

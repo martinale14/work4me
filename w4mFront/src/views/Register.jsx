@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import logo from '../assets/w4mLogo.png';
@@ -12,7 +12,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { link } from '../assets/url.json';
 import MyPhoto from '../assets/userDefault.png';
 
-export default class Register extends React.Component {
+export default class Register extends Component {
 
     _myBirth = null;
     _imageData = null;
