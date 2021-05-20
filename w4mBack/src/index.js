@@ -40,6 +40,7 @@ app.use(require('./routes/main.routes'));
 app.use(require('./routes/authentications.routes'));
 app.use('/register/candidate', require('./routes/registerApplicant.routes'));
 app.use('/register/company', require('./routes/registerCompany.routes'));
+app.use('/vacancies', require('./routes/vacancies.routes'));
 
 //Socket Connection
 io.on('connection', (socket) => {

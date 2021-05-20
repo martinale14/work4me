@@ -96,7 +96,7 @@ passport.deserializeUser(async (email, done) => {
 
     let rows = await pool.query('SELECT * FROM candidates WHERE email = ?', [email]);
 
-    if (rows > 0) {
+    if (rows.length > 0) {
 
         done(null, rows[0]);
 
@@ -104,7 +104,7 @@ passport.deserializeUser(async (email, done) => {
 
         rows = await pool.query('SELECT * FROM companies WHERE companyEmail = ?', [email]);
 
-        if (rows > 0) {
+        if (rows.length > 0) {
 
             done(null, rows[0]);
 
