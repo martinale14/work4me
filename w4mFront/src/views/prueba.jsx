@@ -14,10 +14,10 @@ export default class Prueba extends Component {
 
     fetchPhoto = () => {
 
-        fetch(`${link}/${this.props.match.params.id}`)
+        fetch(`${link}/user/${this.props.match.params.id}`)
             .then(res => res.json())
             .then(data => {
-
+                console.log(data.profilePic)
                 this.setState({ image: decode(data.profilePic) });
 
             }).catch(err => console.error(err))

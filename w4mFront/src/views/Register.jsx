@@ -30,6 +30,13 @@ export default class Register extends Component {
             phoneNumber: '',
             imagePreview: MyPhoto,
             cities: [],
+            compName: '',
+            tin: '',
+            compNumber: '',
+            lrName: '',
+            lrLastname: '',
+            compEmail: '',
+            compPass: '',
         }
 
     }
@@ -100,9 +107,30 @@ export default class Register extends Component {
             .catch(err => console.error(err))
     }
 
+    registerCompany() {
+        fetch(`${link}/register/company`, {
+            method: 'POST',
+            body: JSON.stringify({
+                "tin": this.state.tin,
+                "name": this.state.lrName,
+                "lastName": this.state.lrLastname,
+                "companyName": this.state.compName,
+                "email": this.state.compEmail,
+                "password": this.state.compPass,
+                "phoneNumber": this.state.compNumber,
+                "logo": this._imageData
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => console.log(data.msg))
+            .catch(err => console.error(err))
+    }
+
     render() {
-
-
 
         return (
             <div className="grid">
@@ -120,27 +148,33 @@ export default class Register extends Component {
                             <Btn id="app" className="app" text="Applicant" onClick={() => {
                                 const app = document.getElementById("app");
                                 const comp = document.getElementById("comp");
+                                const users = document.getElementById("users");
+                                const companies = document.getElementById("companies");
 
                                 app.setAttribute('style', `background-color: rgba(255, 255, 255, 1) !important;
                                                 color: rgb(17, 17, 17) !important`);
                                 comp.setAttribute('style', `background-color: rgba(255, 255, 255, .18) !important;
                                                 color: rgb(255, 255, 255) !important`);
-
+                                users.setAttribute('style', `display: grid !important`);
+                                companies.setAttribute('style', `display: none !important`);
                             }} />
                             <Btn id="comp" className="comp" text="Company" onClick={() => {
                                 const app = document.getElementById("app");
                                 const comp = document.getElementById("comp");
+                                const users = document.getElementById("users");
+                                const companies = document.getElementById("companies");
 
                                 app.setAttribute('style', `background-color: rgba(255, 255, 255, .18) !important;
                                                 color: rgb(255, 255, 255) !important`);
                                 comp.setAttribute('style', `background-color: rgba(255, 255, 255, 1) !important;
                                                 color: rgb(17, 17, 17) !important`);
+                                users.setAttribute('style', `display: none !important`);
+                                companies.setAttribute('style', `display: grid !important`);
                             }} />
                         </div>
-
                     </div>
                 </div>
-                <div className="reg">
+                <div id="users" className="reg">
                     <FileChooser id="picture" className="pic" onClick={this.handleFile} image={this.state.imagePreview} />
                     <Input id="name" type="text" placeholder="Name" className="inp left" value={this.state.name} onChange={(data) => this.setState({ name: data.target.value })} />
                     <Input id="lastname" type="text" placeholder="Lastname" className="inp right" value={this.state.lastname} onChange={(data) => this.setState({ lastname: data.target.value })} />
@@ -153,22 +187,14 @@ export default class Register extends Component {
                         renderInput={(params) => <TextField {...params} label="City" />}
                         className="inp right"
                         onChange={data => {
-
                             if (data.target.textContent) {
-
                                 let idC = this.state.cities.filter(city => city.nameCity === data.target.textContent);
-
                                 this.setState({
                                     idCity: idC[0].idCity
                                 });
-
                             }
-
-
                         }}
                     />
-
-
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
                             className="inp left"
@@ -194,16 +220,37 @@ export default class Register extends Component {
                             if (this.state.name && this.state.lastname && this.state.birthday && this.state.idCity
                                 && this.state.id && this.state.email && this.state.password && this.state.phoneNumber
                                 && this._imageData) {
-
                                 let date = this.state.birthday;
-
                                 this._myBirth = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-
                                 this._imageData = await readImage(this._imageData);
-
                                 this.registerCandidate();
+                            } else {
+                                console.log('te falta algo compa');
+                            }
+                        }}/>
+                    </div>
+                </div>
 
 
+                <div id="companies" className="reg2">
+                    <FileChooser id="picture" className="pic" onClick={this.handleFile} image={this.state.imagePreview} />
+                    <Input id="name" type="text" placeholder="Company's name" className="inp up" value={this.state.compName} onChange={(data) => this.setState({ compName: data.target.value })} />
+                    <Input id="lastname" type="number" placeholder="T.I.N." className="inp left" value={this.state.tin} onChange={(data) => this.setState({ tin: data.target.value })} />
+                    <Input id="id" type="number" placeholder="Company's number" className="inp right" value={this.state.compNumber} onChange={(data) => this.setState({ compNumber: data.target.value })} />
+                    <Input id="id" type="text" placeholder="L.R. Name" className="inp left" value={this.state.lrName} onChange={(data) => this.setState({ lrName: data.target.value })} />
+                    <Input id="phone" type="text" placeholder="L.R. Lastname" className="inp right" value={this.state.lrLastname} onChange={(data) => this.setState({ lrLastname: data.target.value })} />
+                    <Input id="email" type="text" placeholder="Email" className="inp pic" value={this.state.compEmail} onChange={(data) => this.setState({ compEmail: data.target.value })} />
+                    <Input id="password" type="password" placeholder="Password" className="inp down" value={this.state.compPass} onChange={(data) => this.setState({ compPass: data.target.value })} />
+                    <Input id="password2" type="password" placeholder="Password confirmation" className="inp down" />
+                    <div id="submit" className="submit">
+                        <Btn text="Sign up" onClick={async () => {
+
+                            console.log(this.state)
+                            if (this.state.compName && this.state.compEmail && this.state.tin && this.state.compNumber
+                                && this.state.compPass && this.state.lrName && this.state.lrLastname 
+                                && this._imageData) {
+                                this._imageData = await readImage(this._imageData);
+                                this.registerCompany();
                             } else {
                                 console.log('te falta algo compa');
                             }

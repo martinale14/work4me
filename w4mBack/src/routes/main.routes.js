@@ -17,6 +17,14 @@ router.get('/cities', async (req, res) => {
 
 });
 
+router.get('/categories', async (req, res) => {
+
+    const data = await pool.query('SELECT * FROM categories');
+
+    res.json(data);
+
+});
+
 router.get('/user/:id', async (req, res) => {
 
     const data = await pool.query('SELECT * FROM candidates WHERE idCandidate = ?', [req.params.id]);

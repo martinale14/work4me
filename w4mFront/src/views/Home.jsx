@@ -10,6 +10,7 @@ import Btn from '../components/Btn'
 import FormatIndentIncreaseIcon from '@material-ui/icons/FormatIndentIncrease';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import myphoto from '../assets/userDefault.png';
 
 export default class Home extends Component{
 
@@ -19,6 +20,10 @@ export default class Home extends Component{
             value: [0, 100],
             categories: [],
             cities: [],
+            vacancies: [],
+            idCity: '',
+            idCat: '',
+            images: [],
         }
     }
 
@@ -27,7 +32,14 @@ export default class Home extends Component{
         if (this.state.cities.length <= 0) {
             this.fetchCities();
         }
+        
+        if (this.state.vacancies.length <= 0) {
+            this.fetchVacancies();
+        }
 
+        if (this.state.categories.length <= 0) {
+            this.fetchCategories();
+        }
     }
 
     fetchCities() {
@@ -35,6 +47,30 @@ export default class Home extends Component{
             .then(res => res.json())
             .then(data => {
                 this.setState({ cities: data });
+            })
+            .catch(err => console.error(err));
+    }
+
+    async fetchVacancies() {
+        fetch(`${link}/vacancies`)
+            .then(res => res.json())
+            .then(data => {
+                data.forEach((element, i) => {
+                    console.log(decode(element.logo))
+                    data[i].logo = decode(element.logo)
+                })
+                this.setState({ vacancies: data,
+                });
+                
+            })
+            .catch(err => console.error(err));
+    }
+
+    fetchCategories() {
+        fetch(`${link}/categories`)
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ categories: data });
             })
             .catch(err => console.error(err));
     }
@@ -62,25 +98,30 @@ export default class Home extends Component{
                     <Btn id="signOut" onClick={() => {console.log('ME HAS GOLPEADO')}} className="sign-out" text="Sign out" />
                 </div>
                 <div className="feed">
-                    <Card/>
-                    <Card/>
-                    <Card/>
-                    <Card/>
+                    {this.state.vacancies.map(element => {
+                        console.log(element.logo)
+                        return (<Card key={element.idVacant} 
+                            text={`${element.description}... `} 
+                            salary={element.salary}
+                            nameCompany={element.nameCompany}
+                            image={element.logo}
+                            />)
+                    })}
                 </div>
                 <div className="right-bar">
                     <Autocomplete
                         id="combo-box-categories"
                         options={this.state.categories}
-                        getOptionLabel={(option) => option.nameCity}
+                        getOptionLabel={(option) => option.nameCategory}
                         style={{ width: 300 }}
                         renderInput={(params) => <TextField {...params} label="Category" />}
                         className="inp right"
                         onChange={data => {
 
                             if (data.target.textContent) {
-                                let idC = this.state.categories.filter(city => city.nameCity === data.target.textContent);
+                                let idCa = this.state.categories.filter(category => category.nameCategory === data.target.textContent);
                                 this.setState({
-                                    idCity: idC[0].idCity
+                                    idCat: idCa[0].idCategory
                                 });
                             }
                         }}
@@ -110,4 +151,9 @@ export default class Home extends Component{
 
     }
 
+}
+
+function decode(arr) {
+    console.log('entre')
+    return decodeURIComponent(escape(window.atob(btoa(arr.data.reduce((data, byte) => data + String.fromCharCode(byte), '')))));
 }

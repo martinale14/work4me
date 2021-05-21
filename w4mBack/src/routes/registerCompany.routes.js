@@ -29,8 +29,9 @@ router.post('/', async (req, res) => {
          lastName2_R,
          companyEmail,
          password,
+         logo,
          phoneNumber)`.replaceAll(' ', '') +
-        ` VALUES(?,?,?,?,?,?,?,?,?);`
+        ` VALUES(?,?,?,?,?,?,?,?,?,?);`
 
     sql = sql.replace(/(\r\n|\n|\r)/gm, "");
 
@@ -46,7 +47,7 @@ router.post('/', async (req, res) => {
 
             await pool.query(sql,
                 [user.tin, user.companyName, user.name[0], user.name[1], user.lastName[0],
-                user.lastName[1], user.email, user.password, user.phoneNumber]
+                user.lastName[1], user.email, user.password, user.logo, user.phoneNumber]
             );
 
             const transporter = nodemailer.createTransport({

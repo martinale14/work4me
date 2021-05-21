@@ -199,3 +199,77 @@
     background-color: transparent !important; 
     color: colorRgb(17) !important; 
 }
+
+.reg2{
+
+    height: 100%;
+    display: none !important;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 15% repeat(6, 10.8%) 20%;
+    align-content: center;
+    justify-items: center;
+
+    & > .inp{
+        width: calc(100% - 60px) !important;
+        margin: 0px 5% !important;
+        position: relative !important;
+    }
+
+    & > .pic{
+        grid-column: 1/5 !important;
+        align-self: center;
+        justify-self: center;
+    }
+
+    & > .left{
+        grid-column: 1/3 !important;
+        align-self: center;
+        justify-self: center;
+
+        & .MuiButtonBase-root {
+            color: colorRgb(80) !important;
+            border-radius: 50px !important;
+            background-color: transparent !important;
+        }
+
+    }
+
+    & > .right{
+        grid-column: 3/5 !important;
+        align-self: center;
+        justify-self: center;
+
+        & .MuiButtonBase-root {
+            color: colorRgb(80) !important;
+            border-radius: 50px !important;
+            background-color: transparent !important;
+        }
+
+    }
+
+    & > .down{
+        grid-column: 1/4 !important;
+        align-self: center;
+        justify-self: center;
+    }
+
+    & > .up{
+        grid-column: 1/5 !important;
+        align-self: center;
+        justify-self: center;
+    }
+
+    & > .submit{
+        grid-column: 1/5 !important;
+        align-self: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        & Button{
+            width: 40%;
+        }
+
+    }
+
+}

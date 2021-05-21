@@ -4,7 +4,7 @@ const pool = require('../database');
 
 router.get('/', async (req, res) => {
 
-    let rows = await pool.query('SELECT * FROM vacancies ORDER BY publicationDate DESC');
+    let rows = await pool.query('SELECT v.*, c.nameCompany, c.logo, ca.nameCategory FROM companies c, vacancies v, categories ca WHERE v.idCompanyfk = c.tin AND v.idCategoryfk = ca.idCategory');
 
     (rows.length > 0) ? res.json(rows) : res.json({ msg: 'There are no available vacancies' });;
 
