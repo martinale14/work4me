@@ -15,11 +15,17 @@ export default class Input extends Component {
                 onChange={this.props.onChange}
                 value={this.props.value} autoComplete='off'
                 inputProps={
-                    {readOnly: this.props.readOnly,}
+                    {
+                        readOnly: this.props.readOnly,
+                        autoComplete: 'new-password',
+                        form: {
+                            autoComplete: 'off'
+                        }
+                    }
                 }
                 InputLabelProps={{
                     shrink: this.props.shrink,
-                  }} />
+                }} />
         );
     }
 }

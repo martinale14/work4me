@@ -184,7 +184,11 @@ export default class Register extends Component {
                         options={this.state.cities}
                         getOptionLabel={(option) => option.nameCity}
                         style={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="City" />}
+                        renderInput={(params) => {
+
+                            return (<TextField {...params} label="City" />);
+
+                        }}
                         className="inp right"
                         onChange={data => {
                             if (data.target.textContent) {
@@ -227,7 +231,7 @@ export default class Register extends Component {
                             } else {
                                 console.log('te falta algo compa');
                             }
-                        }}/>
+                        }} />
                     </div>
                 </div>
 
@@ -247,7 +251,7 @@ export default class Register extends Component {
 
                             console.log(this.state)
                             if (this.state.compName && this.state.compEmail && this.state.tin && this.state.compNumber
-                                && this.state.compPass && this.state.lrName && this.state.lrLastname 
+                                && this.state.compPass && this.state.lrName && this.state.lrLastname
                                 && this._imageData) {
                                 this._imageData = await readImage(this._imageData);
                                 this.registerCompany();
