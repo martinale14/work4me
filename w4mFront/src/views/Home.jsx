@@ -108,7 +108,7 @@ export default class Home extends Component {
                             });
 
                         return (<Card key={element.idVacant}
-                            text={`${element.description}... `}
+                            text={element.description}
                             salary={element.salary}
                             nameCompany={element.nameCompany}
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
