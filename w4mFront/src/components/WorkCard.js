@@ -1,6 +1,5 @@
 import { React, Component } from 'react';
 import "../css/workCard.scss";
-import imagen from '../assets/index.jpg'
 import ReactRoundedImage from "react-rounded-image";
 import RaisedButton from './RaisedButton';
 

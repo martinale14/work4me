@@ -41,6 +41,7 @@ app.use(require('./routes/authentications.routes'));
 app.use('/register/candidate', require('./routes/registerApplicant.routes'));
 app.use('/register/company', require('./routes/registerCompany.routes'));
 app.use('/vacancies', require('./routes/vacancies.routes'));
+app.use('/applications', require('./routes/applications.routes'));
 
 //Socket Connection
 io.on('connection', (socket) => {
