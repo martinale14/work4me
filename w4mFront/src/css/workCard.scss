@@ -9,7 +9,6 @@
 .home-card{
     margin-top: 4%;
     width: 90%;
-    height: 35%;
     border: 2px solid colorRgb(50);
     border-radius: 8px;
 }
@@ -20,6 +19,7 @@
     display: flex;
     flex-direction:row;
     align-items: center;
+    pointer-events: none;
 
     & > .comp-name{
         width: 80%;
@@ -54,7 +54,7 @@
 }
 
 .description{
-    margin: 1% 2% 1% 2%;
+    margin: 1% 2% 2% 2%;
     display: flex;
     flex-direction:row;
     align-items: center;
@@ -65,11 +65,4 @@
         font-size: 14px;
         margin: 0px;
     }
-
-    & .see{
-        border-radius: 25px;
-        color: colorRgb(160);
-        font-size: 14px !important;
-    }
-
 }

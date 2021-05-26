@@ -24,7 +24,7 @@ export default class WorkCard extends Component {
                     <p className="job2">Vacancy offered</p><p className="salary">{this.props.salary}</p>
                 </div>
                 <div className="description">
-                    <p>{this.props.text} <RaisedButton className="see" text="See more"/></p>
+                    <p>{this.props.text}</p>
                 </div>
             </div>
         );

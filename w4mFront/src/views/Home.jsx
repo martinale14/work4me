@@ -80,7 +80,7 @@ export default class Home extends Component{
         return(
             <div className="gridReg">
                 <div className="nav-barReg">
-                    <img src={logo} alt="w4m" />
+                    <img id="imagencita" src={logo} alt="w4m"/>
                 </div>
                 <div className="left-bar">
                     <div>
@@ -99,9 +99,8 @@ export default class Home extends Component{
                 </div>
                 <div className="feed">
                     {this.state.vacancies.map(element => {
-                        console.log(element.logo)
                         return (<Card key={element.idVacant} 
-                            text={`${element.description}... `} 
+                            text={element.description} 
                             salary={element.salary}
                             nameCompany={element.nameCompany}
                             image={element.logo}
@@ -154,6 +153,5 @@ export default class Home extends Component{
 }
 
 function decode(arr) {
-    console.log('entre')
     return decodeURIComponent(escape(window.atob(btoa(arr.data.reduce((data, byte) => data + String.fromCharCode(byte), '')))));
 }
