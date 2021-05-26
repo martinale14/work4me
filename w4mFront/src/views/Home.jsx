@@ -12,7 +12,10 @@ import ContactMailIcon from '@material-ui/icons/ContactMail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import myphoto from '../assets/userDefault.png';
 
-export default class Home extends Component{
+export default class Home extends Component {
+
+    _images = [];
+    _decode = [];
 
     constructor(props) {
         super(props);
@@ -23,16 +26,15 @@ export default class Home extends Component{
             vacancies: [],
             idCity: '',
             idCat: '',
-            images: [],
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
         if (this.state.cities.length <= 0) {
             this.fetchCities();
         }
-        
+
         if (this.state.vacancies.length <= 0) {
             this.fetchVacancies();
         }
@@ -55,13 +57,10 @@ export default class Home extends Component{
         fetch(`${link}/vacancies`)
             .then(res => res.json())
             .then(data => {
-                data.forEach((element, i) => {
-                    console.log(decode(element.logo))
-                    data[i].logo = decode(element.logo)
-                })
-                this.setState({ vacancies: data,
+                this.setState({
+                    vacancies: data,
                 });
-                
+
             })
             .catch(err => console.error(err));
     }
@@ -75,37 +74,45 @@ export default class Home extends Component{
             .catch(err => console.error(err));
     }
 
-    render(){
+    render() {
 
-        return(
+        return (
             <div className="gridReg">
                 <div className="nav-barReg">
                     <img src={logo} alt="w4m" />
                 </div>
                 <div className="left-bar">
                     <div>
-                        <FormatIndentIncreaseIcon className="icons"/>
+                        <FormatIndentIncreaseIcon className="icons" />
                         <p>Home</p>
                     </div>
                     <div>
-                        <ContactMailIcon className="icons"/>
+                        <ContactMailIcon className="icons" />
                         <p>Applications</p>
                     </div>
                     <div>
-                        <NotificationsIcon className="icons"/>
+                        <NotificationsIcon className="icons" />
                         <p>Notifications</p>
                     </div>
-                    <Btn id="signOut" onClick={() => {console.log('ME HAS GOLPEADO')}} className="sign-out" text="Sign out" />
+                    <Btn id="signOut" onClick={() => { console.log('ME HAS GOLPEADO') }} className="sign-out" text="Sign out" />
                 </div>
                 <div className="feed">
-                    {this.state.vacancies.map(element => {
-                        console.log(element.logo)
-                        return (<Card key={element.idVacant} 
-                            text={`${element.description}... `} 
+                    {this.state.vacancies.map((element, i) => {
+                        this._images[i] = myphoto;
+                        decode(element.logo)
+                            .then(data => {
+                                if (!this._decode[i]) {
+                                    this._decode[i] = data;
+                                    this.setState({});
+                                }
+                            });
+
+                        return (<Card key={element.idVacant}
+                            text={`${element.description}... `}
                             salary={element.salary}
                             nameCompany={element.nameCompany}
-                            image={element.logo}
-                            />)
+                            image={this._decode[i] ? this._decode[i] : this._images[i]}
+                        />)
                     })}
                 </div>
                 <div className="right-bar">
@@ -143,8 +150,8 @@ export default class Home extends Component{
                         }}
                     />
                     <Slider value={this.state.value} className="slide"
-                        onChange={(event, newValue) => {this.setState({value: newValue})}}/>
-                    <Btn id="filter" onClick={() => {console.log('ME HAS GOLPEADO')}} className="filter" text="Filter" />
+                        onChange={(event, newValue) => { this.setState({ value: newValue }) }} />
+                    <Btn id="filter" onClick={() => { console.log('ME HAS GOLPEADO') }} className="filter" text="Filter" />
                 </div>
             </div>
         )
@@ -154,6 +161,9 @@ export default class Home extends Component{
 }
 
 function decode(arr) {
-    console.log('entre')
-    return decodeURIComponent(escape(window.atob(btoa(arr.data.reduce((data, byte) => data + String.fromCharCode(byte), '')))));
+    return new Promise((res, rej) => {
+
+        res(decodeURIComponent(escape(window.atob(btoa(arr.data.reduce((data, byte) => data + String.fromCharCode(byte), ''))))))
+
+    });
 }
