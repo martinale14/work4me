@@ -17,7 +17,7 @@ router.post('/login', (req, res, next) => {
             if (usr.idCandidate) {
                 return res.json({ msg: 'Conectado', idCandidate: usr.idCandidate });
             } else {
-                return res.json({ msg: 'Conectado', idCompany: usr.tin });
+                return res.json({ msg: 'Conectado', tin: usr.tin });
             }
 
         });
@@ -30,12 +30,16 @@ router.get('/logout', (req, res) => {
 
     if (req.session.user.name1) {
         console.log(`${req.session.user.name1} se ha desconectado`);
+        req.session.destroy();
+        req.logOut();
+        res.send('Desconectado');
+    } else {
+        console.log(`${req.session.user.nameCompany} se ha desconectado`);
+        req.session.destroy();
+        req.logOut();
+        res.send('Desconectado');
+
     }
-
-    req.session.destroy();
-    req.logOut();
-    res.send('Desconectado');
-
 });
 
 module.exports = router;
