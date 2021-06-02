@@ -14,7 +14,11 @@ router.post('/login', (req, res, next) => {
 
             if (err) { return next(err); };
 
-            return res.json({ msg: 'Conectado', idCandidate: usr.idCandidate });
+            if (usr.idCandidate) {
+                return res.json({ msg: 'Conectado', idCandidate: usr.idCandidate });
+            } else {
+                return res.json({ msg: 'Conectado', idCompany: usr.tin });
+            }
 
         });
 
