@@ -14,7 +14,7 @@ router.post('/login', (req, res, next) => {
 
             if (err) { return next(err); };
 
-            return res.json({ msg: 'Conectado' });
+            return res.json({ msg: 'Conectado', idCandidate: usr.idCandidate });
 
         });
 
