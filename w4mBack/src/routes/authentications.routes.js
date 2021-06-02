@@ -28,7 +28,10 @@ router.post('/login', (req, res, next) => {
 
 router.get('/logout', (req, res) => {
 
-    console.log(req.session.user);
+    req.session.destroy();
+    req.logOut();
+    res.send('Desconectado');
+
 });
 
 module.exports = router;
