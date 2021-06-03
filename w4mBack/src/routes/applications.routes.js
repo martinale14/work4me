@@ -17,7 +17,24 @@ router.get('/', async (req, res) => {
             ON v.idVacant = ap.idVacancyfk 
             WHERE ap.idCandidatefk = ?`, [req.body.idCandidate]);
 
-        (rows.length > 0) ? res.json(rows) : res.json({ msg: 'You didn´t applied yet to any vacant' });
+        (rows.length > 0) ? res.json(rows) : res.json({ msg: 'You didn´t publish any vacant yet' });
+
+    } catch (e) {
+        res.json({ msg: 'Something Went Wrong' })
+    }
+
+});
+
+router.get('/requests', async (req, res) => {
+
+    try {
+        let rows = await pool.query(`SELECT ap.*, ca.name1, ca.name2, ca.lastName1, ca.lastName2, ca.profilePic 
+        FROM applications ap 
+        INNER JOIN candidates ca 
+        ON ap.idCandidatefk = ca.idCandidate 
+        WHERE ap.idVacancyfk = ?`, [req.body.idVacancy]);
+
+        (rows.length > 0) ? res.json(rows) : res.json({ msg: 'No one has applied to your vacant yet' });
 
     } catch (e) {
         res.json({ msg: 'Something Went Wrong' })
