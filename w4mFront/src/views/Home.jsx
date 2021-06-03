@@ -1,16 +1,17 @@
 import { React, Component } from 'react';
-import Card from '../components/WorkCard'
+import Card from '../components/WorkCard';
 import "../css/home.scss";
 import logo from '../assets/w4mLogo.png';
-import Slider from '../components/Slider'
+import Slider from '../components/Slider';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { link } from '../assets/url.json';
 import TextField from '@material-ui/core/TextField';
-import Btn from '../components/Btn'
+import Btn from '../components/Btn';
 import FormatIndentIncreaseIcon from '@material-ui/icons/FormatIndentIncrease';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import myphoto from '../assets/userDefault.png';
+import AppCard from '../components/AppCard';
 
 export default class Home extends Component {
 
@@ -26,6 +27,7 @@ export default class Home extends Component {
             vacancies: [],
             idCity: '',
             idCat: '',
+            applications: [],
         }
     }
 
@@ -82,11 +84,23 @@ export default class Home extends Component {
                     <img id="imagencita" src={logo} alt="w4m"/>
                 </div>
                 <div className="left-bar">
-                    <div>
+                    <div onClick={() => {
+                        const hom = document.getElementById("home");
+                        const ap = document.getElementById("app");
+
+                        hom.setAttribute('style', `display: flex !important`);
+                        ap.setAttribute('style', `display: none !important`);
+                    }}>
                         <FormatIndentIncreaseIcon className="icons" />
                         <p>Home</p>
                     </div>
-                    <div>
+                    <div onClick={() => {
+                        const hom = document.getElementById("home");
+                        const ap = document.getElementById("app");
+
+                        hom.setAttribute('style', `display: none !important`);
+                        ap.setAttribute('style', `display: flex !important`);
+                    }}>
                         <ContactMailIcon className="icons" />
                         <p>Applications</p>
                     </div>
@@ -94,9 +108,22 @@ export default class Home extends Component {
                         <NotificationsIcon className="icons" />
                         <p>Notifications</p>
                     </div>
-                    <Btn id="signOut" onClick={() => { console.log('ME HAS GOLPEADO') }} className="sign-out" text="Sign out" />
+                    <Btn id="signOut" onClick={() => {
+                        console.log("hola");
+                        fetch(`${link}/logout`)
+                            .then(res => res.text())
+                            .then(data => {
+                                if(data === "Desconectado"){
+                                    this.props.history.push("/");
+                                }
+                            })
+                            .catch(err => console.error(err));
+                    }} className="sign-out" text="Sign out" />
                 </div>
-                <div className="feed">
+
+                {/* Empieza el feed */}
+
+                <div id="home" className="feed home">
                     {this.state.vacancies.map((element, i) => {
                         this._images[i] = myphoto;
                         decode(element.logo)
@@ -114,7 +141,15 @@ export default class Home extends Component {
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
                         />)
                     })}
+                    <br /><br />
                 </div>
+                <div id="app" className="feed apl">
+                    <AppCard status="true"/>
+                    <AppCard status="false"/>
+                </div>
+
+                {/* Termina el feed */}
+
                 <div className="right-bar">
                     <Autocomplete
                         id="combo-box-categories"
@@ -151,7 +186,7 @@ export default class Home extends Component {
                     />
                     <Slider value={this.state.value} className="slide"
                         onChange={(event, newValue) => { this.setState({ value: newValue }) }} />
-                    <Btn id="filter" onClick={() => { console.log('ME HAS GOLPEADO') }} className="filter" text="Filter" />
+                    <Btn id="filter" onClick={() => {console.log("ME GOLPEASTE")}} className="filter" text="Filter" />
                 </div>
             </div>
         )

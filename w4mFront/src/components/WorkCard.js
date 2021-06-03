@@ -1,7 +1,6 @@
 import { React, Component } from 'react';
 import "../css/workCard.scss";
 import ReactRoundedImage from "react-rounded-image";
-import RaisedButton from './RaisedButton';
 
 export default class WorkCard extends Component {
     render() {

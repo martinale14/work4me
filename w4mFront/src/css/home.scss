@@ -51,7 +51,7 @@
         font-size: 22px;
         font-family: poppinsMedium;
         color: colorRgb(200);
-        margin-left: 2%;
+        margin: 0 0 0 5px;
     }
 
     & .icons{
@@ -76,11 +76,18 @@
     }
 
     & > .sign-out{
-        width: 40% !important;
+        width: 50% !important;
         margin-top: auto;
         margin-bottom: 15%;
     }
 
+}
+.home{
+    display: flex !important;
+}
+
+.apl{
+    display: none !important;
 }
 
 .feed{
