@@ -6,7 +6,7 @@ const pool = require('../database');
 // Test Routes
 router.get('/cities', async (req, res) => {
 
-    const data = await pool.query('SELECT * FROM cities');
+    const data = await pool.query('SELECT * FROM getcities');
 
     res.json(data);
 
@@ -14,7 +14,7 @@ router.get('/cities', async (req, res) => {
 
 router.get('/categories', async (req, res) => {
 
-    const data = await pool.query('SELECT * FROM categories');
+    const data = await pool.query('SELECT * FROM getcategories');
 
     res.json(data);
 
@@ -22,7 +22,7 @@ router.get('/categories', async (req, res) => {
 
 router.get('/user/:id', async (req, res) => {
 
-    const data = await pool.query('SELECT * FROM candidates WHERE idCandidate = ?', [req.params.id]);
+    let data = await pool.query('SELECT * FROM candidates WHERE idCandidate = ?', [req.params.id]);
 
     if (data.length > 0) {
 

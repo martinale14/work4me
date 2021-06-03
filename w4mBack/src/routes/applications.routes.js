@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
             ON v.idCityfk = ci.idCity 
             INNER JOIN applications ap 
             ON v.idVacant = ap.idVacancyfk 
-            WHERE ap.idCandidatefk = ?;`, [req.body.idCandidate]);
+            WHERE ap.idCandidatefk = ?`, [req.body.idCandidate]);
 
         (rows.length > 0) ? res.json(rows) : res.json({ msg: 'You didn´t applied yet to any vacant' });
 
