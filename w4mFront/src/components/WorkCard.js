@@ -26,7 +26,7 @@ export default class WorkCard extends Component {
                     <p>{this.props.text}</p>                    
                 </div>
                 <div className="aply">
-                    <RaisedButton id="apply" text="Apply" className="apply"/>
+                    <RaisedButton id="apply" text="Apply" className="apply" onClick={this.props.onClick}/>
                 </div>
             </div>
         );

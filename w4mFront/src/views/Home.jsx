@@ -11,6 +11,7 @@ import FormatIndentIncreaseIcon from '@material-ui/icons/FormatIndentIncrease';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import myphoto from '../assets/userDefault.png';
 import AppCard from '../components/AppCard';
+import CloseIcon from '@material-ui/icons/Close';
 
 export default class Home extends Component {
 
@@ -30,7 +31,18 @@ export default class Home extends Component {
         }
     }
 
+    handleFile = () => {
+        this.fileSelector.click();
+    }
+
     componentDidMount() {
+
+        this.fileSelector = buildFileSelector();
+        this.fileSelector.addEventListener('change', (event) => {
+            let file = event.target.files[0];
+            this._imageData = file;
+            this.setState({ imagePreview: URL.createObjectURL(file) });
+        });
 
         if (this.state.cities.length <= 0) {
             this.fetchCities();
@@ -42,6 +54,10 @@ export default class Home extends Component {
 
         if (this.state.categories.length <= 0) {
             this.fetchCategories();
+        }
+
+        if (this.state.applications.length <= 0) {
+            this.fetchApplications();
         }
     }
 
@@ -60,6 +76,18 @@ export default class Home extends Component {
             .then(data => {
                 this.setState({
                     vacancies: data,
+                });
+
+            })
+            .catch(err => console.error(err));
+    }
+
+    async fetchApplications() {
+        fetch(`${link}/applications`)
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    applications: data,
                 });
 
             })
@@ -138,6 +166,11 @@ export default class Home extends Component {
                             salary={element.salary}
                             nameCompany={element.nameCompany}
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
+                            onClick={() => {
+                                const pdf = document.getElementById("alert");
+
+                                pdf.setAttribute('style', 'display: flex !important');
+                            }}
                         />)
                     })}
                     <br /><br />
@@ -206,7 +239,7 @@ export default class Home extends Component {
 
                         if(filterBody.city || filterBody.category || filterBody.maxSalary || filterBody.minSalary){
                             fetch(`${link}/vacancies/filter`, {
-                                method: 'POST',
+                                method: 'GET',
                                 body: JSON.stringify(filterBody),
                                 headers: {
                                   'Accept': 'application/json',
@@ -228,9 +261,37 @@ export default class Home extends Component {
                         }
                     }} className="filter" text="Filter" />
                 </div>
+                <div id="alert" className="alert" onClick={() => {
+                    const pdf = document.getElementById("alert");
+                    pdf.setAttribute('style', 'display: none !important');
+                }}>
+                    <div className="close" onClick={() => {
+                        const pdf = document.getElementById("alert");
+                        pdf.setAttribute('style', 'display: none !important');
+                    }}>
+                        <CloseIcon/>
+                    </div>
+                    <div className="alertBody">
+                        <p>Please browse your CV</p>
+                        <div className="btnCont">
+                            <Btn className="file" text="Choose file..." onClick={this.handleFile} />
+                        </div>
+                        <Btn className="pdfSelector" text="Send request"/>
+                    </div>
+                </div>
             </div>
         )
     }
+}
+
+function buildFileSelector() {
+
+    const fileSelector = document.createElement("input");
+    fileSelector.setAttribute('type', 'file');
+    fileSelector.setAttribute('multiple', 'multiple');
+    fileSelector.setAttribute('accept', '.pdf');
+
+    return fileSelector;
 }
 
 function decode(arr) {
