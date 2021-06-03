@@ -7,31 +7,46 @@
 }
 
 .home-card{
-    margin-top: 4%;
+    margin-top: 35px;
     width: 90%;
     border: 2px solid colorRgb(50);
     border-radius: 8px;
 }
 
 .picture{
-    margin-left: 2%;
-    margin-top: 2%;
+    margin-left: 15px;
+    margin-top: 15px;
     display: flex;
     flex-direction:row;
     align-items: center;
-    pointer-events: none;
 
     & > .comp-name{
-        width: 80%;
+        width: 60%;
         margin: 0px 0px 0px 1.5%;
         color: colorRgb(200);
         font-family: poppinsMediumBold;
         font-size: 16px;
     }
+
+    & .del{
+        color: colorRgb(160);
+        font-size: 14px;
+        width: 150px;
+        justify-self: center;
+        text-align: center;
+        margin-left: auto;
+        height: min-content;
+
+        &:hover{
+            cursor: pointer !important;
+            text-decoration: underline !important;
+        }
+
+    }
 }
 
 .job{
-    margin-left: 2%;
+    margin-left: 15px;
     margin-top: 1%;
     display: flex;
     flex-direction:row;
@@ -44,7 +59,7 @@
     }
 
     & > .job2{
-        margin: 0px 1.5% 0px 0px;
+        margin: 0px 10px 0px 0px;
     }
 
     & > .salary{
@@ -54,7 +69,7 @@
 }
 
 .description{
-    margin: 1% 2% 2% 2%;
+    margin: 8px 15px 15px 15px;
     display: flex;
     flex-direction:row;
     align-items: center;
@@ -65,4 +80,42 @@
         font-size: 14px;
         margin: 0px;
     }
+}
+
+.iconos{
+    margin: 20px 18px 20px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    & div{
+        height: 78px; 
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: colorRgb(20) !important;
+        border-radius: 10px;
+
+        & .ic{
+            font-size: 40px !important;
+            color: colorRgb(200) !important;
+        }
+
+        & .icApp{
+            font-size: 40px !important;
+            color: rgb(19, 138, 0) !important;
+        }
+
+        & .icCan{
+            font-size: 40px !important;
+            color: rgb(188, 0, 0) !important;
+        }
+
+        & p{
+            margin: 0 0 0 10px;
+        }
+
+    }
+
 }

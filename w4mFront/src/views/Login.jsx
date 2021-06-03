@@ -74,9 +74,11 @@ export default class Login extends Component {
           console.log(data.msg);
           this.setState({ email: '', password: '' });
           if (data.msg === 'Conectado') {
-
-            this.props.history.push('/');
-
+            if(data.idCandidate){
+              this.props.history.push(`/Home/candidate/${data.idCandidate}`);
+            }else{
+              this.props.history.push(`/Home/company/${data.tin}`);
+            }
           }
         })
         .catch(err => console.error(err));
