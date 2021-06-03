@@ -14,7 +14,7 @@ router.get('/mine', async (req, res) => {
 
     let rows = await pool.query(`SELECT * FROM getVacancies WHERE idCompanyfk = ?`, [req.body.idCompany]);
     console.log(rows);
-    (rows.length > 0) ? res.json(rows) : res.json({ msg: 'There are no available vacancies' });;
+    (rows.length > 0) ? res.json(rows) : res.json({ msg: 'There are no available vacancies' });
 
 });
 
