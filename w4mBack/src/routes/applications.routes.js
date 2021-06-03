@@ -28,7 +28,7 @@ router.post('/add', async (req, res) => {
 
 });
 
-router.post('/edit', async (req, res) => {
+router.put('/edit', async (req, res) => {
 
     data = req.body;
 

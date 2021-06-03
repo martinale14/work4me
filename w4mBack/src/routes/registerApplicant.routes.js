@@ -135,5 +135,19 @@ router.get('/verify/:id', async (req, res) => {
 
 });
 
+router.put('/edit', async (req, res) => {
+
+    try {
+        await pool.query('CALL editCandidate(?,?,?,?)', [req.body.email, req.body.phoneNumber, req.body.description, req.body.idCandidate]);
+
+        res.json({ msg: 'Profile updated correctly' });
+    }
+    catch (e) {
+
+        res.json({ msg: 'Something were wrong' });
+    }
+
+});
+
 
 module.exports = router;
