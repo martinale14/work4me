@@ -5,6 +5,22 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const url = require('../../../w4mFront/src/assets/url.json');
 
+router.get('/:id', async (req, res) => {
+
+    let data = await pool.query('SELECT * FROM candidates WHERE idCandidate = ?', [req.params.id]);
+
+    if (data.length > 0) {
+
+        res.json(data[0]);
+
+    } else {
+
+        res.json({ msg: 'no hay datos' });
+
+    }
+
+});
+
 router.post('/', async (req, res, next) => {
 
     req.body.password = await bcrypt.hash(req.body.password, await bcrypt.genSalt(10));

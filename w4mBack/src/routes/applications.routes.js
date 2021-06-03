@@ -5,9 +5,36 @@ const pool = require('../database');
 router.get('/', async (req, res) => {
 
     try {
-        let rows = await pool.query('SELECT * FROM applications WHERE idCandidatefk = ?', [req.body.idCandidate]);
+        let rows = await pool.query(`SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity, ap.approved 
+            FROM vacancies v 
+            INNER JOIN companies c 
+            ON v.idCompanyfk = c.tin 
+            INNER JOIN categories ca 
+            ON v.idCategoryfk = ca.idCategory 
+            LEFT JOIN cities ci 
+            ON v.idCityfk = ci.idCity 
+            INNER JOIN applications ap 
+            ON v.idVacant = ap.idVacancyfk 
+            WHERE ap.idCandidatefk = ?`, [req.body.idCandidate]);
 
-        (rows.length > 0) ? res.json(rows) : res.json({ msg: 'You didn´t applied yet to any vacant' });
+        (rows.length > 0) ? res.json(rows) : res.json({ msg: 'You didn´t publish any vacant yet' });
+
+    } catch (e) {
+        res.json({ msg: 'Something Went Wrong' })
+    }
+
+});
+
+router.get('/requests', async (req, res) => {
+
+    try {
+        let rows = await pool.query(`SELECT ap.*, ca.name1, ca.name2, ca.lastName1, ca.lastName2, ca.profilePic 
+        FROM applications ap 
+        INNER JOIN candidates ca 
+        ON ap.idCandidatefk = ca.idCandidate 
+        WHERE ap.idVacancyfk = ?`, [req.body.idVacancy]);
+
+        (rows.length > 0) ? res.json(rows) : res.json({ msg: 'No one has applied to your vacant yet' });
 
     } catch (e) {
         res.json({ msg: 'Something Went Wrong' })
