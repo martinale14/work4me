@@ -20,7 +20,7 @@ router.post('/add', async (req, res) => {
     data = req.body;
 
     try {
-        await pool.query('INSERT INTO applications (idVacancyfk, idCandidatefk, cv) VALUES (?, ?, ?)', [data.idVacant, data.idCandidate, data.cv]);
+        await pool.query('call applyToJob(?, ?, ?)', [data.idVacant, data.idCandidate, data.cv]);
         res.json({ msg: 'Application Sent' });
     } catch (e) {
         res.json({ msg: 'Something were wrong' });

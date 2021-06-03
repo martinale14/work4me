@@ -4,7 +4,7 @@ const pool = require('../database');
 
 router.get('/', async (req, res) => {
 
-    let rows = await pool.query('SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity FROM vacancies v INNER JOIN companies c ON v.idCompanyfk = c.tin INNER JOIN categories ca ON v.idCategoryfk = ca.idCategory INNER JOIN cities ci ON v.idCityfk = ci.idCity ORDER BY v.publicationDate DESC');
+    let rows = await pool.query('SELECT * FROM getVacancies');
 
     (rows.length > 0) ? res.json(rows) : res.json({ msg: 'There are no available vacancies' });;
 
@@ -16,7 +16,7 @@ router.post('/filter', async (req, res) => {
 
     let filters = Array();
 
-    let sql = 'SELECT v.*, c.nameCompany, ca.nameCategory, ci.nameCity FROM vacancies v INNER JOIN companies c ON v.idCompanyfk = c.tin INNER JOIN categories ca ON v.idCategoryfk = ca.idCategory INNER JOIN cities ci ON v.idCityfk = ci.idCity WHERE';
+    let sql = 'SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity FROM vacancies v INNER JOIN companies c ON v.idCompanyfk = c.tin INNER JOIN categories ca ON v.idCategoryfk = ca.idCategory INNER JOIN cities ci ON v.idCityfk = ci.idCity WHERE';
 
     fil.category ? filters.push(`idCategoryfk = ${fil.category}`) : null;
     fil.city ? filters.push(`idCityfk = ${fil.city}`) : null;
