@@ -1,18 +1,10 @@
 const express = require('express');
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http, {
-    // Cross Origin Resource Sharing
-    cors: {
-        origin: '*',
-    }
-});
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
-const { database } = require('./keys');
 
 require('./lib/passport');
 
@@ -43,12 +35,7 @@ app.use('/register/company', require('./routes/registerCompany.routes'));
 app.use('/vacancies', require('./routes/vacancies.routes'));
 app.use('/applications', require('./routes/applications.routes'));
 
-//Socket Connection
-io.on('connection', (socket) => {
-    console.log(`User ${socket.id} connected`);
-});
-
 //Starting Server
-http.listen(app.get('port'), () => {
+app.listen(app.get('port'), () => {
     console.log('Server on port ' + app.get('port'));
 });

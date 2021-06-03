@@ -16,7 +16,7 @@ router.post('/filter', async (req, res) => {
 
     let filters = Array();
 
-    let sql = 'SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity FROM vacancies v INNER JOIN companies c ON v.idCompanyfk = c.tin INNER JOIN categories ca ON v.idCategoryfk = ca.idCategory INNER JOIN cities ci ON v.idCityfk = ci.idCity WHERE';
+    let sql = 'SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity FROM vacancies v INNER JOIN companies c ON v.idCompanyfk = c.tin INNER JOIN categories ca ON v.idCategoryfk = ca.idCategory LEFT JOIN cities ci ON v.idCityfk = ci.idCity WHERE';
 
     fil.category ? filters.push(`idCategoryfk = ${fil.category}`) : null;
     fil.city ? filters.push(`idCityfk = ${fil.city}`) : null;
@@ -54,6 +54,18 @@ router.post('/add', async (req, res) => {
     }
     catch (e) {
 
+        res.json({ msg: 'Something were wrong' });
+    }
+
+});
+
+router.delete('/delete', async (req, res) => {
+
+    try {
+        await pool.query('DELETE FROM vacancies WHERE idVacant = ?', [req.body.idVacant]);
+
+        res.json({ msg: 'Vacancy deleted correctly' });
+    } catch (e) {
         res.json({ msg: 'Something were wrong' });
     }
 

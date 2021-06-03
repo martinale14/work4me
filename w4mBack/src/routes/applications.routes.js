@@ -41,4 +41,18 @@ router.post('/edit', async (req, res) => {
 
 });
 
+router.delete('/delete', async (req, res) => {
+
+    try {
+        await pool.query('DELETE FROM applications WHERE idApplication = ?', [req.body.idApplication]);
+
+        res.json({ msg: 'Application deleted correctly' });
+    } catch (e) {
+        res.json({ msg: 'Something were wrong' });
+    }
+
+});
+
+
+
 module.exports = router;
