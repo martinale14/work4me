@@ -5,7 +5,17 @@ const pool = require('../database');
 router.get('/', async (req, res) => {
 
     try {
-        let rows = await pool.query('SELECT * FROM applications WHERE idCandidatefk = ?', [req.body.idCandidate]);
+        let rows = await pool.query(`SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity, ap.approved 
+            FROM vacancies v 
+            INNER JOIN companies c 
+            ON v.idCompanyfk = c.tin 
+            INNER JOIN categories ca 
+            ON v.idCategoryfk = ca.idCategory 
+            LEFT JOIN cities ci 
+            ON v.idCityfk = ci.idCity 
+            INNER JOIN applications ap 
+            ON v.idVacant = ap.idVacancyfk 
+            WHERE ap.idCandidatefk = ?;`, [req.body.idCandidate]);
 
         (rows.length > 0) ? res.json(rows) : res.json({ msg: 'You didn´t applied yet to any vacant' });
 
