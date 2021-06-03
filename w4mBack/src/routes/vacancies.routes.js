@@ -28,8 +28,8 @@ router.post('/filter', async (req, res) => {
 
     } else {
 
-        fil.minSalary ? filters.push(`salary > ${fil.minSalary}`) : null;
-        fil.maxSalary ? filters.push(`salary < ${fil.maxSalary}`) : null;
+        fil.minSalary ? filters.push(`salary >= ${fil.minSalary}`) : null;
+        fil.maxSalary ? filters.push(`salary <= ${fil.maxSalary}`) : null;
 
     }
 
@@ -40,6 +40,22 @@ router.post('/filter', async (req, res) => {
     let rows = await pool.query(sql);
 
     (rows.length > 0) ? res.json(rows) : res.json({ msg: 'No vacancies where Found' });
+
+});
+
+router.post('/add', async (req, res) => {
+
+    console.log(req.body);
+
+    try {
+        await pool.query('CALL addVacancy(?,?,?,?,?)', [req.body.description, req.body.salary, req.body.idCity, req.body.idCategory, req.body.idCompany]);
+
+        res.json({ msg: 'Vacancie added correctly' });
+    }
+    catch (e) {
+
+        res.json({ msg: 'Something were wrong' });
+    }
 
 });
 
