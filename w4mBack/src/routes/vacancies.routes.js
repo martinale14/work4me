@@ -35,7 +35,7 @@ router.get('/filter', async (req, res) => {
 
     filters.forEach((filter, i) => sql += `${(i != 0) ? ' AND' : ''} ${filter}`);
 
-    sql += ' ORDER BY publicationDate DESC';
+    sql += ' ORDER BY v.publicationDate DESC';
 
     let rows = await pool.query(sql);
 
