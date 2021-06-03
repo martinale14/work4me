@@ -24,6 +24,7 @@ export default class Register extends Component {
             lastname: '',
             email: '',
             password: '',
+            password2: '',
             birthday: null,
             id: '',
             idCity: '',
@@ -37,6 +38,7 @@ export default class Register extends Component {
             lrLastname: '',
             compEmail: '',
             compPass: '',
+            compPass2: '',
         }
 
     }
@@ -218,19 +220,23 @@ export default class Register extends Component {
                     <Input id="phone" type="number" placeholder="Phone number" className="inp right" value={this.state.phoneNumber} onChange={(data) => this.setState({ phoneNumber: data.target.value })} />
                     <Input id="email" type="text" placeholder="Email" className="inp pic" value={this.state.email} onChange={(data) => this.setState({ email: data.target.value })} />
                     <Input id="password" type="password" placeholder="Password" className="inp down" value={this.state.password} onChange={(data) => this.setState({ password: data.target.value })} />
-                    <Input id="password2" type="password" placeholder="Password confirmation" className="inp down" />
+                    <Input id="password2" type="password" placeholder="Password confirmation" className="inp down" value={this.state.password2} onChange={(data) => this.setState({ password2: data.target.value })} />
                     <div id="submit" className="submit">
                         <Btn text="Sign up" onClick={async () => {
 
                             if (this.state.name && this.state.lastname && this.state.birthday && this.state.idCity
                                 && this.state.id && this.state.email && this.state.password && this.state.phoneNumber
-                                && this._imageData) {
-                                let date = this.state.birthday;
-                                this._myBirth = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-                                this._imageData = await readImage(this._imageData);
-                                this.registerCandidate();
+                                && this.state.password2 && this._imageData) {
+                                if(this.state.password2 === this.state.password){
+                                    let date = this.state.birthday;
+                                    this._myBirth = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+                                    this._imageData = await readImage(this._imageData);
+                                    this.registerCandidate();
+                                }else{
+                                    alert('Las contraseñas deben coincidir');
+                                }
                             } else {
-                                console.log('te falta algo compa');
+                                alert('Completa todos los campos');
                             }
                         }} />
                     </div>
@@ -239,25 +245,29 @@ export default class Register extends Component {
 
                 <div id="companies" className="reg2">
                     <FileChooser id="picture" className="pic" onClick={this.handleFile} image={this.state.imagePreview} />
-                    <Input id="name" type="text" placeholder="Company's name" className="inp up" value={this.state.compName} onChange={(data) => this.setState({ compName: data.target.value })} />
-                    <Input id="lastname" type="number" placeholder="T.I.N." className="inp left" value={this.state.tin} onChange={(data) => this.setState({ tin: data.target.value })} />
-                    <Input id="id" type="number" placeholder="Company's number" className="inp right" value={this.state.compNumber} onChange={(data) => this.setState({ compNumber: data.target.value })} />
-                    <Input id="id" type="text" placeholder="L.R. Name" className="inp left" value={this.state.lrName} onChange={(data) => this.setState({ lrName: data.target.value })} />
-                    <Input id="phone" type="text" placeholder="L.R. Lastname" className="inp right" value={this.state.lrLastname} onChange={(data) => this.setState({ lrLastname: data.target.value })} />
-                    <Input id="email" type="text" placeholder="Email" className="inp pic" value={this.state.compEmail} onChange={(data) => this.setState({ compEmail: data.target.value })} />
-                    <Input id="password" type="password" placeholder="Password" className="inp down" value={this.state.compPass} onChange={(data) => this.setState({ compPass: data.target.value })} />
-                    <Input id="password2" type="password" placeholder="Password confirmation" className="inp down" />
+                    <Input id="compName" type="text" placeholder="Company's name" className="inp up" value={this.state.compName} onChange={(data) => this.setState({ compName: data.target.value })} />
+                    <Input id="tin" type="number" placeholder="T.I.N." className="inp left" value={this.state.tin} onChange={(data) => this.setState({ tin: data.target.value })} />
+                    <Input id="compNumber" type="number" placeholder="Company's number" className="inp right" value={this.state.compNumber} onChange={(data) => this.setState({ compNumber: data.target.value })} />
+                    <Input id="LRname" type="text" placeholder="L.R. Name" className="inp left" value={this.state.lrName} onChange={(data) => this.setState({ lrName: data.target.value })} />
+                    <Input id="LRlastname" type="text" placeholder="L.R. Lastname" className="inp right" value={this.state.lrLastname} onChange={(data) => this.setState({ lrLastname: data.target.value })} />
+                    <Input id="compEmail" type="text" placeholder="Email" className="inp pic" value={this.state.compEmail} onChange={(data) => this.setState({ compEmail: data.target.value })} />
+                    <Input id="passwordCom" type="password" placeholder="Password" className="inp down" value={this.state.compPass} onChange={(data) => this.setState({ compPass: data.target.value })} />
+                    <Input id="password2Com" type="password" placeholder="Password confirmation" className="inp down" />
                     <div id="submit" className="submit">
                         <Btn text="Sign up" onClick={async () => {
 
                             console.log(this.state)
                             if (this.state.compName && this.state.compEmail && this.state.tin && this.state.compNumber
                                 && this.state.compPass && this.state.lrName && this.state.lrLastname
-                                && this._imageData) {
-                                this._imageData = await readImage(this._imageData);
-                                this.registerCompany();
+                                && this.state.compPass2 && this._imageData) {
+                                if(this.state.compPass === this.state.compPass2){
+                                    this._imageData = await readImage(this._imageData);
+                                    this.registerCompany();
+                                }else{
+                                    alert('Las contraseñas deben coincidir');
+                                }
                             } else {
-                                console.log('te falta algo compa');
+                                alert('Completa todos los campos');
                             }
                         }
                         } />

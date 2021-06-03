@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import Btn from '../components/Btn';
 import FormatIndentIncreaseIcon from '@material-ui/icons/FormatIndentIncrease';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import myphoto from '../assets/userDefault.png';
 import AppCard from '../components/AppCard';
 
@@ -87,9 +86,11 @@ export default class Home extends Component {
                     <div onClick={() => {
                         const hom = document.getElementById("home");
                         const ap = document.getElementById("app");
+                        const rb = document.getElementById("rightbar");
 
                         hom.setAttribute('style', `display: flex !important`);
                         ap.setAttribute('style', `display: none !important`);
+                        rb.setAttribute('style', `display: flex !important`);
                     }}>
                         <FormatIndentIncreaseIcon className="icons" />
                         <p>Home</p>
@@ -97,16 +98,14 @@ export default class Home extends Component {
                     <div onClick={() => {
                         const hom = document.getElementById("home");
                         const ap = document.getElementById("app");
+                        const rb = document.getElementById("rightbar");
 
                         hom.setAttribute('style', `display: none !important`);
                         ap.setAttribute('style', `display: flex !important`);
+                        rb.setAttribute('style', `display: none !important`);
                     }}>
                         <ContactMailIcon className="icons" />
                         <p>Applications</p>
-                    </div>
-                    <div>
-                        <NotificationsIcon className="icons" />
-                        <p>Notifications</p>
                     </div>
                     <Btn id="signOut" onClick={() => {
                         console.log("hola");
@@ -150,7 +149,7 @@ export default class Home extends Component {
 
                 {/* Termina el feed */}
 
-                <div className="right-bar">
+                <div id="rightbar" className="right-bar">
                     <Autocomplete
                         id="combo-box-categories"
                         options={this.state.categories}
@@ -164,6 +163,10 @@ export default class Home extends Component {
                                 let idCa = this.state.categories.filter(category => category.nameCategory === data.target.textContent);
                                 this.setState({
                                     idCat: idCa[0].idCategory
+                                });
+                            }else{
+                                this.setState({
+                                    idCat: ''
                                 });
                             }
                         }}
@@ -181,24 +184,57 @@ export default class Home extends Component {
                                 this.setState({
                                     idCity: idC[0].idCity
                                 });
+                            }else{
+                                this.setState({
+                                    idCity: ''
+                                });
                             }
                         }}
                     />
                     <Slider value={this.state.value} className="slide"
                         onChange={(event, newValue) => { this.setState({ value: newValue }) }} />
-                    <Btn id="filter" onClick={() => {console.log("ME GOLPEASTE")}} className="filter" text="Filter" />
+                    <Btn id="filter" onClick={() => {
+
+                        let filterBody = {}
+                        filterBody.city = (this.state.idCity) ? this.state.idCity : null;
+                        filterBody.category = (this.state.categories) ? this.state.idCat : null;
+                        filterBody.minSalary = (this.state.value[0] !== 0) ? this.state.value[0] * 1000000 : null;
+                        filterBody.maxSalary = (this.state.value[1] !== 100) ? this.state.value[1] * 1000000 : null;
+
+                        console.log(this.state.value);
+                        console.log(filterBody.minSalary, filterBody.maxSalary);
+
+                        if(filterBody.city || filterBody.category || filterBody.maxSalary || filterBody.minSalary){
+                            fetch(`${link}/vacancies/filter`, {
+                                method: 'POST',
+                                body: JSON.stringify(filterBody),
+                                headers: {
+                                  'Accept': 'application/json',
+                                  'Content-Type': 'application/json'
+                                }
+                            }).then(res => res.json())
+                            .then(data => {
+                                if(!data.msg){
+                                    this.setState({
+                                        vacancies: data,
+                                    });
+                                }else{
+                                    alert(data.msg);
+                                }
+                            })
+                            .catch(err => console.error(err));
+                        }else{
+                            this.fetchVacancies();
+                        }
+                    }} className="filter" text="Filter" />
                 </div>
             </div>
         )
-
     }
-
 }
 
 function decode(arr) {
     return new Promise((res, rej) => {
-
         res(decodeURIComponent(escape(window.atob(btoa(arr.data.reduce((data, byte) => data + String.fromCharCode(byte), ''))))))
-
     });
 }

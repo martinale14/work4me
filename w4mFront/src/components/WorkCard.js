@@ -1,6 +1,7 @@
 import { React, Component } from 'react';
-import "../css/workCard.scss";
-import ReactRoundedImage from "react-rounded-image";
+import '../css/workCard.scss';
+import ReactRoundedImage from 'react-rounded-image';
+import RaisedButton from './RaisedButton'
 
 export default class WorkCard extends Component {
     render() {
@@ -22,7 +23,10 @@ export default class WorkCard extends Component {
                     <p className="job2">Vacancy offered</p><p className="salary">{this.props.salary}</p>
                 </div>
                 <div className="description">
-                    <p>{this.props.text}</p>
+                    <p>{this.props.text}</p>                    
+                </div>
+                <div className="aply">
+                    <RaisedButton id="apply" text="Apply" className="apply"/>
                 </div>
             </div>
         );

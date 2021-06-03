@@ -59,9 +59,7 @@ export default class Login extends Component {
   }
 
   login() {
-
     if (this.state.email !== '' && this.state.password !== '') {
-
       fetch(`${url.link}/login`, {
         method: 'POST',
         body: JSON.stringify({ email: this.state.email, password: this.state.password }),
@@ -79,12 +77,11 @@ export default class Login extends Component {
             }else{
               this.props.history.push(`/Home/company/${data.tin}`);
             }
+          }else{
+            alert(data.msg)
           }
         })
         .catch(err => console.error(err));
-
     }
-
   }
-
 }

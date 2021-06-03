@@ -69,7 +69,7 @@
 }
 
 .description{
-    margin: 8px 15px 15px 15px;
+    margin: 8px 15px 0px 15px;
     display: flex;
     flex-direction:row;
     align-items: center;
@@ -79,6 +79,26 @@
         color: colorRgb(100);
         font-size: 14px;
         margin: 0px;
+    }
+
+}
+
+.aply{
+
+    margin: 8px 20px 15px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    & .apply{
+        color: colorRgb(200);
+        font-size: 14px;
+        height: min-content;
+
+        &:hover{
+            cursor: pointer !important;
+            text-decoration: underline !important;
+        }
     }
 }
 
