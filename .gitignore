@@ -2,3 +2,4 @@
 /w4mBack/node_modules
 /w4mFront/node_modules
 /.DS_Store
+/w4mFront/src/assets/url.json
