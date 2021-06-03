@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../database');
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
 
     try {
         let rows = await pool.query('SELECT * FROM applications WHERE idCandidatefk = ?', [req.body.idCandidate]);
@@ -20,7 +20,7 @@ router.post('/add', async (req, res) => {
     data = req.body;
 
     try {
-        await pool.query('INSERT INTO applications (idVacancyfk, idCandidatefk) VALUES (?, ?)', [data.idVacant, data.idCandidate]);
+        await pool.query('INSERT INTO applications (idVacancyfk, idCandidatefk, cv) VALUES (?, ?, ?)', [data.idVacant, data.idCandidate, data.cv]);
         res.json({ msg: 'Application Sent' });
     } catch (e) {
         res.json({ msg: 'Something were wrong' });
