@@ -20,10 +20,23 @@ router.post('/add', async (req, res) => {
     data = req.body;
 
     try {
-        await pool.query('call applyToJob(?, ?, ?)', [data.idVacant, data.idCandidate, data.cv]);
+        await pool.query('CALL applyToJob(?, ?, ?)', [data.idVacant, data.idCandidate, data.cv]);
         res.json({ msg: 'Application Sent' });
     } catch (e) {
         res.json({ msg: 'Something were wrong' });
+    }
+
+});
+
+router.post('/edit', async (req, res) => {
+
+    data = req.body;
+
+    try {
+        await pool.query('CALL responseToApplication(?,?)', [data.idApplication, data.approved]);
+        res.json({ msg: 'Application Updated' });
+    } catch (e) {
+        res.json({ meg: 'Something were wrong' });
     }
 
 });
