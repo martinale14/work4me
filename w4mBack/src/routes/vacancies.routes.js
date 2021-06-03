@@ -3,8 +3,7 @@ const router = express.Router();
 const pool = require('../database');
 
 router.get('/', async (req, res) => {
-
-    let rows = await pool.query('SELECT v.*, c.nameCompany, c.logo, ca.nameCategory FROM companies c, vacancies v, categories ca WHERE v.idCompanyfk = c.tin AND v.idCategoryfk = ca.idCategory');
+    let rows = await pool.query('SELECT v.*, c.nameCompany, c.logo, ca.nameCategory FROM companies c, vacancies v, categories ca WHERE v.idCompanyfk = c.tin AND v.idCategoryfk = ca.idCategory ORDER BY v.publicationDate DESC');
 
     (rows.length > 0) ? res.json(rows) : res.json({ msg: 'There are no available vacancies' });;
 
