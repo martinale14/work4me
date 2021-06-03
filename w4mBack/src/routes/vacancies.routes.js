@@ -4,7 +4,7 @@ const pool = require('../database');
 
 router.get('/', async (req, res) => {
 
-    let rows = await pool.query('SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity FROM vacancies v INNER JOIN companies c ON v.idCompanyfk = c.tin INNER JOIN categories ca ON v.idCategoryfk = ca.idCategory INNER JOIN cities ci ON v.idCityfk = ci.idCity ORDER BY publicationDate DESC');
+    let rows = await pool.query('SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity FROM vacancies v INNER JOIN companies c ON v.idCompanyfk = c.tin INNER JOIN categories ca ON v.idCategoryfk = ca.idCategory INNER JOIN cities ci ON v.idCityfk = ci.idCity ORDER BY v.publicationDate DESC');
 
     (rows.length > 0) ? res.json(rows) : res.json({ msg: 'There are no available vacancies' });;
 
