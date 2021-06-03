@@ -59,9 +59,10 @@ export default class Register extends Component {
             event.stopPropagation();
             event.preventDefault();
             let file = event.dataTransfer.files[0];
-            this._imageData = file;
-            this.setState({ imagePreview: URL.createObjectURL(file) });
-
+            if(file && file.type.match(/image.*/)){
+                this._imageData = file;
+                this.setState({ imagePreview: URL.createObjectURL(file) });
+            }
         })
 
         if (this.state.cities.length <= 0) {
@@ -272,6 +273,7 @@ function buildFileSelector() {
     const fileSelector = document.createElement("input");
     fileSelector.setAttribute('type', 'file');
     fileSelector.setAttribute('multiple', 'multiple');
+    fileSelector.setAttribute('accept', '.png, .jpg, .jpeg');
 
     return fileSelector;
 }
