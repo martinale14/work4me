@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 
 });
 
-router.get('/filter', async (req, res) => {
+router.post('/filter', async (req, res) => {
 
     fil = req.body;
 
