@@ -1,6 +1,7 @@
 import { React, Component } from 'react';
 import Card from '../components/WorkCardCompany';
 import "../css/home.scss";
+import "../css/homeCompany.scss";
 import logo from '../assets/w4mLogo.png';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { link } from '../assets/url.json';
@@ -226,6 +227,17 @@ export default class HomeCompany extends Component {
                             alert('Por favor llene todos los campos marcados con *')
                         }
                     }} className="filter" text="Publish" />
+                    <Btn id="signOut" onClick={() => {
+                        console.log("hola");
+                        fetch(`${link}/logout`)
+                            .then(res => res.text())
+                            .then(data => {
+                                if(data === "Desconectado"){
+                                    this.props.history.push("/");
+                                }
+                            })
+                            .catch(err => console.error(err));
+                    }} className="sign-out" text="Sign out" />
                 </div>
             </div>
         )
