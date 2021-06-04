@@ -152,13 +152,29 @@ router.get('/verify/:id', async (req, res) => {
 router.put('/edit', async (req, res) => {
 
     try {
-        await pool.query('CALL editCandidate(?,?,?,?)', [req.body.email, req.body.phoneNumber, req.body.description, req.body.idCandidate]);
 
-        res.json({ msg: 'Profile updated correctly' });
-    }
-    catch (e) {
+        let rows = await pool.query('SELECT companyEmail FROM companies WHERE companyEmail = ?', [req.body.email]);
 
-        res.json({ msg: 'Something were wrong' });
+        if (rows.length > 0) {
+
+            res.json({ msg: 'El email ya se encuentra en uso' });
+
+        } else {
+
+            await pool.query('CALL editCandidate(?,?,?,?)', [req.body.email, req.body.phoneNumber, req.body.description, req.body.idCandidate]);
+
+        }
+
+    } catch (err) {
+
+        if (err.code === 'ER_DUP_ENTRY') {
+
+            res.json({
+                msg: 'Correo ya Registrado'
+            });
+
+        }
+
     }
 
 });
