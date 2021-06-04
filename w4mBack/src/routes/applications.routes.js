@@ -5,7 +5,7 @@ const pool = require('../database');
 router.post('/', async (req, res) => {
 
     try {
-        let rows = await pool.query(`SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity, ap.approved 
+        let rows = await pool.query(`SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity, ap.approved, ap.idApplication 
             FROM vacancies v 
             INNER JOIN companies c 
             ON v.idCompanyfk = c.tin 
