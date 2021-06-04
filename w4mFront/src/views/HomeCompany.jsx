@@ -1,5 +1,5 @@
 import { React, Component } from 'react';
-import Card from '../components/WorkCard';
+import Card from '../components/WorkCardCompany';
 import "../css/home.scss";
 import logo from '../assets/w4mLogo.png';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -10,7 +10,6 @@ import Input from '../components/Input';
 import InputMultiline from '../components/InputMultiline';
 import "../css/homeCompany.scss"
 import myphoto from '../assets/userDefault.png';
-import AppCard from '../components/AppCard';
 import CloseIcon from '@material-ui/icons/Close';
 
 export default class HomeCompany extends Component {
@@ -32,18 +31,7 @@ export default class HomeCompany extends Component {
         }
     }
 
-    handleFile = () => {
-        this.fileSelector.click();
-    }
-
     componentDidMount() {
-
-        this.fileSelector = buildFileSelector();
-        this.fileSelector.addEventListener('change', (event) => {
-            let file = event.target.files[0];
-            this._imageData = file;
-            this.setState({ imagePreview: URL.createObjectURL(file) });
-        });
 
         if (this.state.cities.length <= 0) {
             this.fetchCities();
@@ -71,7 +59,7 @@ export default class HomeCompany extends Component {
             .catch(err => console.error(err));
     }
 
-    async fetchVacancies() {
+    fetchVacancies() {
         fetch(`${link}/vacancies/mine`, {
             method: 'POST',
             body: JSON.stringify({ idCompany: this.props.match.params.id }),
@@ -90,7 +78,7 @@ export default class HomeCompany extends Component {
             .catch(err => console.error(err));
     }
 
-    async fetchApplications() {
+    fetchApplications() {
         fetch(`${link}/applications`)
             .then(res => res.json())
             .then(data => {
@@ -131,24 +119,38 @@ export default class HomeCompany extends Component {
                                     this.setState({});
                                 }
                             });
-
+                        element.nameCity = element.nameCity ? element.nameCity : 'Telecommuting';
                         return (<Card key={element.idVacant}
                             text={element.description}
                             salary={element.salary}
                             nameCompany={element.nameCompany}
+                            category={element.nameCategory}
+                            city={element.nameCity}
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
-                            onClick={() => {
-                                const pdf = document.getElementById("alert");
-
-                                pdf.setAttribute('style', 'display: flex !important');
+                            onClickView={() => {
+                                alert('view');
+                            }}
+                            onClickDelete={() => {
+                                fetch(`${link}/vacancies/delete`, {
+                                    method: 'DELETE',
+                                    body: JSON.stringify({
+                                        idVacant: element.idVacant
+                                    }),
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        alert(data.msg);
+                                        this.fetchVacancies();
+                                    })
+                                    .catch(err => console.error(err));
                             }}
                         />)
                     })}
                     <br /><br />
-                </div>
-                <div id="app" className="feed apl">
-                    <AppCard status="true" />
-                    <AppCard status="false" />
                 </div>
 
                 {/* Termina el feed */}
@@ -262,16 +264,6 @@ export default class HomeCompany extends Component {
             </div>
         )
     }
-}
-
-function buildFileSelector() {
-
-    const fileSelector = document.createElement("input");
-    fileSelector.setAttribute('type', 'file');
-    fileSelector.setAttribute('multiple', 'multiple');
-    fileSelector.setAttribute('accept', '.pdf');
-
-    return fileSelector;
 }
 
 function decode(arr) {
