@@ -354,7 +354,7 @@ export default class Home extends Component {
                     <div className="alertBody">
                         <p>Please browse your CV</p>
                         <div className="btnCont2">
-                            <Btn className="file" text="Choose file..." onClick={this.handleFile} />
+                            <Btn className="file file2" text="Choose file..." onClick={this.handleFile} />
                             <p>{this._pdfData ? this._pdfData.name : 'No file selected'}</p>
                         </div>
                         <Btn className="pdfSelector" text="Send request" onClick={async () =>{
