@@ -95,63 +95,8 @@
     }
 }
 
-.gridRegAp{
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: 12.4% 1fr;
-
-    & > div{
-        width: 100%;
-        height: 100%;
-        display: flex;
-    }
-
-    & .right-barAp{
-        grid-column: 4/6;
-        grid-row: 2/3;
-        align-items: center;
-        flex-direction: column;
-
-        & .inp{
-            width: 80% !important;
-            margin-top: 8%;
-        }
-
-        & .MuiButtonBase-root {
-            color: colorRgb(80) !important;
-            border-radius: 50px !important;
-            background-color: transparent !important;
-        }
-
-        & .slide{
-            width: 80%;
-            height: 20%;
-            margin-top: 10%;
-
-            & .MuiSlider-root{
-                color: colorRgb(140);
-            }
-
-        }
-
-        & .filter{
-            transition: background-color 0.3s ease-out;
-            background: transparent;
-            background-color: transparent !important;
-            box-shadow: none;
-            color: colorRgb(200) !important;
-            width: 60% !important;
-            margin-top: 20px;
-
-            &:hover{
-                background-color: colorRgb(40) !important;
-            }
-        }
-
-        & > .pdv{
-            margin:auto;
-        }
-    }
+.sign-out{
+    width: 50% !important;
+    margin-top: auto !important;
+    margin-bottom: 15% !important;
 }

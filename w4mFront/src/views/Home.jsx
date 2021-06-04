@@ -12,6 +12,7 @@ import ContactMailIcon from '@material-ui/icons/ContactMail';
 import myphoto from '../assets/userDefault.png';
 import AppCard from '../components/AppCard';
 import CloseIcon from '@material-ui/icons/Close';
+import RaisedButton from '../components/RaisedButton';
 
 export default class Home extends Component {
 
@@ -144,6 +145,9 @@ export default class Home extends Component {
             <div className="gridReg">
                 <div className="nav-barReg">
                     <img id="imagencita" src={logo} alt="w4m"/>
+                    <div>
+                        <RaisedButton className="miperfil" text="Mi perfil"/>
+                    </div>
                 </div>
                 <div className="left-bar">
                     <div onClick={() => {
