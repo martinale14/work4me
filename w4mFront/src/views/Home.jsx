@@ -18,6 +18,7 @@ export default class Home extends Component {
     _images = [];
     _decode = [];
     _pdfData = null;
+    _toSend = null;
 
     constructor(props) {
         super(props);
@@ -76,7 +77,7 @@ export default class Home extends Component {
             body: JSON.stringify({
                 "idVacant": this.state.idVacant,
                 "idCandidate": this.state.idCandidate,
-                "cv": this._pdfData
+                "cv": this._toSend
             }),
             headers: {
                 'Accept': 'application/json',
@@ -84,10 +85,8 @@ export default class Home extends Component {
             }
         })
             .then(res => res.json())
-            .then(data => console.log(data.msg))
+            .then(data => alert(data.msg))
             .catch(err => console.error(err))
-
-        alert("Successful request")
     }
 
     fetchCities() {
@@ -99,7 +98,7 @@ export default class Home extends Component {
             .catch(err => console.error(err));
     }
 
-    async fetchVacancies() {
+    fetchVacancies() {
         fetch(`${link}/vacancies`)
             .then(res => res.json())
             .then(data => {
@@ -111,8 +110,15 @@ export default class Home extends Component {
             .catch(err => console.error(err));
     }
 
-    async fetchApplications() {
-        fetch(`${link}/applications`)
+    fetchApplications() {
+        fetch(`${link}/applications`, {
+            method: 'POST',
+            body: JSON.stringify({ idCandidate: this.props.match.params.id }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 this.setState({
@@ -160,6 +166,8 @@ export default class Home extends Component {
                         hom.setAttribute('style', `display: none !important`);
                         ap.setAttribute('style', `display: flex !important`);
                         rb.setAttribute('style', `display: none !important`);
+                        
+                        this.fetchApplications();
                     }}>
                         <ContactMailIcon className="icons" />
                         <p>Applications</p>
@@ -210,8 +218,47 @@ export default class Home extends Component {
                     <br /><br />
                 </div>
                 <div id="app" className="feed apl">
-                    <AppCard status="true"/>
-                    <AppCard status="false"/>
+                    {this.state.applications.map((element, i) => {
+                        this._images[i] = myphoto;
+                        decode(element.logo)
+                            .then(data => {
+                                if (!this._decode[i]) {
+                                    this._decode[i] = data;
+                                    this.setState({});
+                                }
+                            });
+                        console.log(element);
+                        element.nameCity = element.nameCity ? element.nameCity : 'Telecommuting'
+                        return (<AppCard key={element.idApplication}
+                            text={element.description}
+                            salary={element.salary}
+                            vacant={element.nameCategory}
+                            city={element.nameCity}
+                            nameCompany={element.nameCompany}
+                            status={element.approved}
+                            image={this._decode[i] ? this._decode[i] : this._images[i]}
+                            onClick={() => {
+                                fetch(`${link}/applications/delete`, {
+                                    method: 'DELETE',
+                                    body: JSON.stringify({idApplication: element.idApplication}),
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (!data.msg) {
+                                        } else {
+                                            alert(data.msg);
+                                            this.fetchApplications();
+                                        }
+                                    })
+                                    .catch(err => console.error(err));
+                            }}
+                        />)
+                    })}
+                    <br /><br />
                 </div>
 
                 {/* Termina el feed */}
@@ -299,21 +346,26 @@ export default class Home extends Component {
                     <div className="close" onClick={() => {
                         const pdf = document.getElementById("alert");
                         pdf.setAttribute('style', 'display: none !important');
+                        console.log(this._pdfData);
+                        this._pdfData = null;
                     }}>
                         <CloseIcon/>
                     </div>
                     <div className="alertBody">
                         <p>Please browse your CV</p>
-                        <div className="btnCont">
+                        <div className="btnCont2">
                             <Btn className="file" text="Choose file..." onClick={this.handleFile} />
+                            <p>{this._pdfData ? this._pdfData.name : 'No file selected'}</p>
                         </div>
                         <Btn className="pdfSelector" text="Send request" onClick={async () =>{
                             if(this.state.idVacant && this.state.idCandidate){
                                 if(this._pdfData){
-                                    this._pdfData = await readPdf(this._pdfData)
+                                    this._toSend = await readPdf(this._pdfData)
                                     this.apply();
+                                    const pdf = document.getElementById("alert");
+                                    pdf.setAttribute('style', 'display: none !important');
+                                    this._pdfData = null;
                                 }else{
-                                    console.log(this.state.idVacant, this.state.idCandidate);
                                     alert("Please select your CV");
                                 }
                             }else{

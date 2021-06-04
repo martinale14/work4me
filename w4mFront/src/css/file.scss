@@ -5,6 +5,18 @@
     align-items: center;
 }
 
+.btnCont2{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    & > p{
+        margin-top: 5px;
+    }
+}
+
 .file{
     width: 20% !important;
     overflow: hidden;

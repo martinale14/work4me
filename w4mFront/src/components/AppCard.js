@@ -9,14 +9,6 @@ import Cancel from '@material-ui/icons/Cancel';
 
 export default class AppCard extends Component {
 
-    aprobar(status){
-        if(status === "true"){
-            return (<div><CheckCircleIcon className="icApp"/></div>)
-        }else{
-            return (<div><CheckCircleOutlineIcon className="ic"/></div>)
-        }
-    }
-
     rechazar(status){
         if(status === "true"){
             return (<div><HighlightOffIcon className="ic"/></div>)
@@ -38,11 +30,12 @@ export default class AppCard extends Component {
                         hoverColor="#000000"
                         className="picture"
                     />
-                    <p className="comp-name">Company name</p>
-                    <RaisedButton id="rais" text="Cancel request" className="del"/>
+                    <p className="comp-name">{this.props.nameCompany}</p>
+                    <RaisedButton id="rais" text="Cancel request" className="del" onClick={this.props.onClick}/>
                 </div>
                 <div className="job">
-                    <p className="job2">Vacancy offered</p><p className="salary">{this.props.salary}</p>
+                    <p className="job2">{`${this.props.vacant} / $${this.props.salary} / ${this.props.city}`}</p>
+                    <p className="desc">{this.props.text}</p>
                 </div>
                 <div className="iconos">
                     <div>
@@ -50,11 +43,11 @@ export default class AppCard extends Component {
                         <p>Applied</p>
                     </div>
                     <div>
-                        {this.aprobar(this.props.status)}
+                        {this.props.status === 1 ? <CheckCircleIcon className="icApp"/> : <CheckCircleOutlineIcon className="ic"/>}
                         <p>Approved</p>
                     </div>
                     <div>
-                        {this.rechazar(this.props.status)}
+                        {this.props.status === 0 ? <Cancel className="icCan"/> : <HighlightOffIcon className="ic"/>}
                         <p>Rejected</p>
                     </div>
                 </div>
