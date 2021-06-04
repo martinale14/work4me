@@ -11,11 +11,11 @@ export default class FileChooser extends Component {
                 <div id="img">
                     <ReactRoundedImage
                         image={this.props.image}
-                        roundedColor="#321124"
+                        roundedColor="#000000"
                         imageWidth="70"
                         imageHeight="70"
                         roundedSize="0"
-                        hoverColor="#DD1144"
+                        hoverColor="#000000"
                         className="photo"
                     />
                 </div>

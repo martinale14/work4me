@@ -10,11 +10,11 @@ export default class WorkCard extends Component {
                 <div className="picture">
                     <ReactRoundedImage
                         image={this.props.image}
-                        roundedColor="#321124"
+                        roundedColor="#000000"
                         imageWidth="40"
                         imageHeight="40"
                         roundedSize="0"
-                        hoverColor="#DD1144"
+                        hoverColor="#000000"
                         className="picture"
                     />
                     <p className="comp-name">{this.props.nameCompany}</p>

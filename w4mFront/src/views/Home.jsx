@@ -17,6 +17,7 @@ export default class Home extends Component {
 
     _images = [];
     _decode = [];
+    _pdfData = null;
 
     constructor(props) {
         super(props);
@@ -27,6 +28,9 @@ export default class Home extends Component {
             vacancies: [],
             idCity: '',
             idCat: '',
+            idVacant: '',
+            idCandidate: '',
+            pdf: '',
             applications: [],
         }
     }
@@ -39,9 +43,14 @@ export default class Home extends Component {
 
         this.fileSelector = buildFileSelector();
         this.fileSelector.addEventListener('change', (event) => {
-            let file = event.target.files[0];
-            this._imageData = file;
-            this.setState({ imagePreview: URL.createObjectURL(file) });
+            if(event.target.files.length === 0){
+                let im = this._pdfData
+                this.setState({ pdf: im });
+            }else{
+                let file = event.target.files[0];
+                this._pdfData = file;
+                this.setState({ pdf: URL.createObjectURL(file) });
+            }
         });
 
         if (this.state.cities.length <= 0) {
@@ -59,6 +68,26 @@ export default class Home extends Component {
         if (this.state.applications.length <= 0) {
             this.fetchApplications();
         }
+    }
+
+    apply() {
+        fetch(`${link}/applications/add`, {
+            method: 'POST',
+            body: JSON.stringify({
+                "idVacant": this.state.idVacant,
+                "idCandidate": this.state.idCandidate,
+                "cv": this._pdfData
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => console.log(data.msg))
+            .catch(err => console.error(err))
+
+        alert("Successful request")
     }
 
     fetchCities() {
@@ -168,8 +197,11 @@ export default class Home extends Component {
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
                             onClick={() => {
                                 const pdf = document.getElementById("alert");
-
                                 pdf.setAttribute('style', 'display: flex !important');
+                                this.setState({
+                                    idVacant: element.idVacant,
+                                    idCandidate: this.props.match.params.id
+                                });
                             }}
                         />)
                     })}
@@ -239,7 +271,7 @@ export default class Home extends Component {
 
                         if(filterBody.city || filterBody.category || filterBody.maxSalary || filterBody.minSalary){
                             fetch(`${link}/vacancies/filter`, {
-                                method: 'GET',
+                                method: 'POST',
                                 body: JSON.stringify(filterBody),
                                 headers: {
                                   'Accept': 'application/json',
@@ -261,10 +293,7 @@ export default class Home extends Component {
                         }
                     }} className="filter" text="Filter" />
                 </div>
-                <div id="alert" className="alert" onClick={() => {
-                    const pdf = document.getElementById("alert");
-                    pdf.setAttribute('style', 'display: none !important');
-                }}>
+                <div id="alert" className="alert">
                     <div className="close" onClick={() => {
                         const pdf = document.getElementById("alert");
                         pdf.setAttribute('style', 'display: none !important');
@@ -276,7 +305,19 @@ export default class Home extends Component {
                         <div className="btnCont">
                             <Btn className="file" text="Choose file..." onClick={this.handleFile} />
                         </div>
-                        <Btn className="pdfSelector" text="Send request"/>
+                        <Btn className="pdfSelector" text="Send request" onClick={async () =>{
+                            if(this.state.idVacant && this.state.idCandidate){
+                                if(this._pdfData){
+                                    this._pdfData = await readPdf(this._pdfData)
+                                    this.apply();
+                                }else{
+                                    console.log(this.state.idVacant, this.state.idCandidate);
+                                    alert("Please select your CV");
+                                }
+                            }else{
+                                alert("Something is happening...");
+                            }
+                        }}/>
                     </div>
                 </div>
             </div>
@@ -284,11 +325,22 @@ export default class Home extends Component {
     }
 }
 
+function readPdf(file) {
+    return new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+            resolve(reader.result);
+
+        }
+        reader.onerror = reject;
+    });
+}
+
 function buildFileSelector() {
 
     const fileSelector = document.createElement("input");
     fileSelector.setAttribute('type', 'file');
-    fileSelector.setAttribute('multiple', 'multiple');
     fileSelector.setAttribute('accept', '.pdf');
 
     return fileSelector;

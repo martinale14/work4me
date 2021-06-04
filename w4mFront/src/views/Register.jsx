@@ -46,9 +46,14 @@ export default class Register extends Component {
     componentDidMount() {
         this.fileSelector = buildFileSelector();
         this.fileSelector.addEventListener('change', (event) => {
-            let file = event.target.files[0];
-            this._imageData = file;
-            this.setState({ imagePreview: URL.createObjectURL(file) });
+            if(event.target.files.length === 0){
+                let im = this.state.imagePreview
+                this.setState({ imagePreview: im });
+            }else{
+                let file = event.target.files[0];
+                this._imageData = file;
+                this.setState({ imagePreview: URL.createObjectURL(file) });
+            }
         });
 
         this.dropArea = document.getElementById("img");
@@ -282,7 +287,6 @@ function buildFileSelector() {
 
     const fileSelector = document.createElement("input");
     fileSelector.setAttribute('type', 'file');
-    fileSelector.setAttribute('multiple', 'multiple');
     fileSelector.setAttribute('accept', '.png, .jpg, .jpeg');
 
     return fileSelector;
