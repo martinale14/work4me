@@ -38,7 +38,7 @@ export default class WorkCard extends Component {
                         className="picture"
                     />
                     <p className="comp-name">{this.props.nameCompany}</p>
-                    <RaisedButton id="rais" text="Look CV" className="del" />
+                    <RaisedButton id="rais" text="Look CV" className="del" onClick={this.props.onClickView}/>
                 </div>
                 <div className="iconosBtn">
                     <div onClick={this.props.onClickAprove}>
@@ -48,7 +48,7 @@ export default class WorkCard extends Component {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div onClick={this.props.onClickReject}>
                         {this.rechazar(this.props.status)}
-                        <p>Rejecte</p>
+                        <p>Reject</p>
                     </div>
                 </div>
             </div>

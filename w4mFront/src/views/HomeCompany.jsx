@@ -10,7 +10,6 @@ import Input from '../components/Input';
 import InputMultiline from '../components/InputMultiline';
 import "../css/homeCompany.scss"
 import myphoto from '../assets/userDefault.png';
-import CloseIcon from '@material-ui/icons/Close';
 
 export default class HomeCompany extends Component {
 
@@ -227,24 +226,6 @@ export default class HomeCompany extends Component {
                             alert('Por favor llene todos los campos marcados con *')
                         }
                     }} className="filter" text="Publish" />
-                </div>
-                <div id="alert" className="alert" onClick={() => {
-                    const pdf = document.getElementById("alert");
-                    pdf.setAttribute('style', 'display: none !important');
-                }}>
-                    <div className="close" onClick={() => {
-                        const pdf = document.getElementById("alert");
-                        pdf.setAttribute('style', 'display: none !important');
-                    }}>
-                        <CloseIcon />
-                    </div>
-                    <div className="alertBody">
-                        <p>Please browse your CV</p>
-                        <div className="btnCont">
-                            <Btn className="file" text="Choose file..." onClick={this.handleFile} />
-                        </div>
-                        <Btn className="pdfSelector" text="Send request" />
-                    </div>
                 </div>
             </div>
         )

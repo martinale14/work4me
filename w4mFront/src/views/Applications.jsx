@@ -3,9 +3,10 @@ import Card from '../components/WorkCardApplication';
 import "../css/home.scss";
 import logo from '../assets/w4mLogo.png';
 import { link } from '../assets/url.json';
-import "../css/homeCompany.scss"
+import "../css/homeCompany.scss";
 import myphoto from '../assets/userDefault.png';
-
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import PdfView from '../components/PdfView'
 
 export default class Applications extends Component {
 
@@ -16,6 +17,7 @@ export default class Applications extends Component {
         super(props);
         this.state = {
             applications: [],
+            pdf: null,
         }
     }
 
@@ -65,6 +67,10 @@ export default class Applications extends Component {
             .catch(err => console.error(err));
     }
 
+    onDocumentLoadSuccess({ numPages: nextNumPages }) {
+        this.setState({numPages: nextNumPages});
+    }
+
     render() {
 
         return (
@@ -76,6 +82,11 @@ export default class Applications extends Component {
                 {/* Empieza el feed */}
 
                 <div id="home" className="feedCompany feedAp home">
+                    <div className="back" onClick={() => {
+                        this.props.history.push(`/Home/company/${this.props.match.params.id}`);
+                    }}>
+                        <ArrowBackIcon className="backIcon"/>
+                    </div>
                     {this.state.applications.map((element, i) => {
                         this._imgs[i] = myphoto;
                         decode(element.profilePic)
@@ -90,7 +101,11 @@ export default class Applications extends Component {
                             nameCompany={`${element.name1} ${element.lastName1}`}
                             image={this._decode[i] ? this._decode[i] : this._imgs[i]}
                             onClickView={() => {
-                                alert('view');
+                                console.log(element);
+                                decode(element.cv)
+                                    .then(data => {
+                                        this.setState({pdf: data})
+                                    })
                             }}
                             status={element.approved}
                             onClickAprove={() => { this.updateStatus(1, element.idApplication) }}
@@ -103,7 +118,7 @@ export default class Applications extends Component {
                 {/* Termina el feed */}
 
                 <div id="rightbar" className="right-barAp">
-
+                    {this.state.pdf ? <PdfView className="pdfFile" pdf={this.state.pdf}/> : <p className="pdv">SELECT A CV TO VIEW</p>}
                 </div>
             </div>
         )

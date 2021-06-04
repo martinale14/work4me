@@ -4,6 +4,19 @@
 
 .feedAp{
     grid-column: 1/4 !important;
+
+    & > .back{
+
+        align-self: flex-start;
+        margin: 15px 0 0 15px;
+        cursor: pointer;
+
+        & > .backIcon{
+            font-size: 30px;
+            color: colorRgb(200)
+        }
+    }
+
 }
 
 
@@ -95,47 +108,50 @@
         display: flex;
     }
 
-.right-barAp{
-    grid-column: 5/6;
-    grid-row: 2/3;
-    align-items: center;
-    flex-direction: column;
+    & .right-barAp{
+        grid-column: 4/6;
+        grid-row: 2/3;
+        align-items: center;
+        flex-direction: column;
 
-    & .inp{
-        width: 80% !important;
-        margin-top: 8%;
-    }
-
-    & .MuiButtonBase-root {
-        color: colorRgb(80) !important;
-        border-radius: 50px !important;
-        background-color: transparent !important;
-    }
-
-    & .slide{
-        width: 80%;
-        height: 20%;
-        margin-top: 10%;
-
-        & .MuiSlider-root{
-            color: colorRgb(140);
+        & .inp{
+            width: 80% !important;
+            margin-top: 8%;
         }
 
-    }
+        & .MuiButtonBase-root {
+            color: colorRgb(80) !important;
+            border-radius: 50px !important;
+            background-color: transparent !important;
+        }
 
-    & .filter{
-        transition: background-color 0.3s ease-out;
-        background: transparent;
-        background-color: transparent !important;
-        box-shadow: none;
-        color: colorRgb(200) !important;
-        width: 60% !important;
-        margin-top: 20px;
+        & .slide{
+            width: 80%;
+            height: 20%;
+            margin-top: 10%;
 
-        &:hover{
-            background-color: colorRgb(40) !important;
+            & .MuiSlider-root{
+                color: colorRgb(140);
+            }
+
+        }
+
+        & .filter{
+            transition: background-color 0.3s ease-out;
+            background: transparent;
+            background-color: transparent !important;
+            box-shadow: none;
+            color: colorRgb(200) !important;
+            width: 60% !important;
+            margin-top: 20px;
+
+            &:hover{
+                background-color: colorRgb(40) !important;
+            }
+        }
+
+        & > .pdv{
+            margin:auto;
         }
     }
-
-}
 }
