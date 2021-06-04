@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
         (rows.length > 0) ? res.json(rows) : res.json({ msg: 'You didn´t publish any vacant yet' });
 
     } catch (e) {
-        res.json({ msg: 'Something Went Wrong' })
+        res.json({ msg: 'Something Went Wrong' });
     }
 
 });
@@ -37,7 +37,7 @@ router.get('/requests', async (req, res) => {
         (rows.length > 0) ? res.json(rows) : res.json({ msg: 'No one has applied to your vacant yet' });
 
     } catch (e) {
-        res.json({ msg: 'Something Went Wrong' })
+        res.json({ msg: 'Something Went Wrong' });
     }
 
 });

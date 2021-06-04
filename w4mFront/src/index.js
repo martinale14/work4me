@@ -4,6 +4,7 @@ import Login from './views/Login'
 import Home from './views/Home'
 import Index from './views/Index'
 import Register from './views/Register'
+import HomeCompany from './views/HomeCompany'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Prueba from './views/prueba';
 import React from 'react';
@@ -16,7 +17,7 @@ ReactDOM.render(
     <Route exact path="/register" component={Register} />
     <Route exact path="/prueba/:id" component={Prueba} />
     <Route exact path="/Home/candidate/:id" component={Home} />
-    <Route exact path="/Home/company/:id" component={Home} />
+    <Route exact path="/Home/company/:id" component={HomeCompany} />
   </Router>,
 
 
