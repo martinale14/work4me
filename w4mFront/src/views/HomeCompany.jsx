@@ -45,9 +45,6 @@ export default class HomeCompany extends Component {
             this.fetchCategories();
         }
 
-        if (this.state.applications.length <= 0) {
-            this.fetchApplications();
-        }
     }
 
     fetchCities() {
@@ -72,18 +69,6 @@ export default class HomeCompany extends Component {
             .then(data => {
                 this.setState({
                     vacancies: data,
-                });
-
-            })
-            .catch(err => console.error(err));
-    }
-
-    fetchApplications() {
-        fetch(`${link}/applications`)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                    applications: data,
                 });
 
             })
@@ -128,7 +113,7 @@ export default class HomeCompany extends Component {
                             city={element.nameCity}
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
                             onClickView={() => {
-                                alert('view');
+                                this.props.history.push(`/Home/company/applications/${element.idVacant}/${this.props.match.params.id}`);
                             }}
                             onClickDelete={() => {
                                 fetch(`${link}/vacancies/delete`, {
