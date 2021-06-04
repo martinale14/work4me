@@ -96,8 +96,6 @@ router.post('/', async (req, res) => {
 
     } catch (err) {
 
-        console.log(err);
-
         if (err.code === 'ER_DUP_ENTRY') {
 
             res.json({

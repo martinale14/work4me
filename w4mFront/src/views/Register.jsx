@@ -16,6 +16,7 @@ export default class Register extends Component {
 
     _myBirth = null;
     _imageData = null;
+    _toSend = null;
 
     constructor(props) {
         super(props);
@@ -46,13 +47,14 @@ export default class Register extends Component {
     componentDidMount() {
         this.fileSelector = buildFileSelector();
         this.fileSelector.addEventListener('change', (event) => {
-            if(event.target.files.length === 0){
-                let im = this.state.imagePreview
-                this.setState({ imagePreview: im });
-            }else{
+
+            if (event.target.files.length > 0) {
+                console.log(event.target.files.length);
                 let file = event.target.files[0];
                 this._imageData = file;
                 this.setState({ imagePreview: URL.createObjectURL(file) });
+            } else {
+                this.setState({ imagePreview: URL.createObjectURL(this._imageData) });
             }
         });
 
@@ -66,7 +68,7 @@ export default class Register extends Component {
             event.stopPropagation();
             event.preventDefault();
             let file = event.dataTransfer.files[0];
-            if(file && file.type.match(/image.*/)){
+            if (file && file.type.match(/image.*/)) {
                 this._imageData = file;
                 this.setState({ imagePreview: URL.createObjectURL(file) });
             }
@@ -103,7 +105,7 @@ export default class Register extends Component {
                 "phoneNumber": this.state.phoneNumber,
                 "idCity": this.state.idCity,
                 "birthday": this._myBirth,
-                "imageData": this._imageData
+                "imageData": this._toSend
             }),
             headers: {
                 'Accept': 'application/json',
@@ -111,7 +113,7 @@ export default class Register extends Component {
             }
         })
             .then(res => res.json())
-            .then(data => console.log(data.msg))
+            .then(data => alert(data.msg))
             .catch(err => console.error(err))
     }
 
@@ -228,16 +230,16 @@ export default class Register extends Component {
                     <Input id="password2" type="password" placeholder="Password confirmation" className="inp down" value={this.state.password2} onChange={(data) => this.setState({ password2: data.target.value })} />
                     <div id="submit" className="submit">
                         <Btn text="Sign up" onClick={async () => {
-
+                            console.log(this.state);
                             if (this.state.name && this.state.lastname && this.state.birthday && this.state.idCity
                                 && this.state.id && this.state.email && this.state.password && this.state.phoneNumber
                                 && this.state.password2 && this._imageData) {
-                                if(this.state.password2 === this.state.password){
+                                if (this.state.password2 === this.state.password) {
                                     let date = this.state.birthday;
                                     this._myBirth = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-                                    this._imageData = await readImage(this._imageData);
+                                    this._toSend = await readImage(this._imageData);
                                     this.registerCandidate();
-                                }else{
+                                } else {
                                     alert('Las contraseñas deben coincidir');
                                 }
                             } else {
@@ -265,10 +267,10 @@ export default class Register extends Component {
                             if (this.state.compName && this.state.compEmail && this.state.tin && this.state.compNumber
                                 && this.state.compPass && this.state.lrName && this.state.lrLastname
                                 && this.state.compPass2 && this._imageData) {
-                                if(this.state.compPass === this.state.compPass2){
-                                    this._imageData = await readImage(this._imageData);
+                                if (this.state.compPass === this.state.compPass2) {
+                                    this._toSend = await readImage(this._imageData);
                                     this.registerCompany();
-                                }else{
+                                } else {
                                     alert('Las contraseñas deben coincidir');
                                 }
                             } else {
