@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../database');
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
 
     try {
         let rows = await pool.query(`SELECT v.*, c.nameCompany, c.logo, ca.nameCategory, ci.nameCity, ap.approved 
@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 
 });
 
-router.get('/requests', async (req, res) => {
+router.post('/requests', async (req, res) => {
 
     try {
         let rows = await pool.query(`SELECT ap.*, ca.name1, ca.name2, ca.lastName1, ca.lastName2, ca.profilePic 
