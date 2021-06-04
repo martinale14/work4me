@@ -189,10 +189,12 @@ export default class Home extends Component {
                                     this.setState({});
                                 }
                             });
-
+                        element.nameCity = element.nameCity ? element.nameCity : 'Telecommuting'
                         return (<Card key={element.idVacant}
                             text={element.description}
                             salary={element.salary}
+                            vacant={element.nameCategory}
+                            city={element.nameCity}
                             nameCompany={element.nameCompany}
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
                             onClick={() => {

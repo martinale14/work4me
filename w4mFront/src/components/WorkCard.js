@@ -20,7 +20,7 @@ export default class WorkCard extends Component {
                     <p className="comp-name">{this.props.nameCompany}</p>
                 </div>
                 <div className="job">
-                    <p className="job2">Vacancy offered</p><p className="salary">{this.props.salary}</p>
+                    <p className="job2">{`${this.props.vacant} / $${this.props.salary} / ${this.props.city}`}</p>
                 </div>
                 <div className="description">
                     <p>{this.props.text}</p>                    
