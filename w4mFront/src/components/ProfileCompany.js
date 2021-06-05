@@ -9,20 +9,20 @@ export default class ProfileCompany extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            lastname: '',
-            id: '',
-            email: '',
-            phoneNumber: '',
-            birthday: '',
-            idCity: '',
-            description: '',
+            compName: '',
+            compEmail: '',
+            compNumber: '',
+            tin: ''
+        }
+
+        if (this.state.tin === '') {
+            this.fetchMyData();
         }
 
     }
 
     fetchMyData() {
-        fetch(`${link}/userCandidate/${this.props.id}`, {
+        fetch(`${link}/userCompany/${this.props.id}`, {
             method: 'POST',
             body: JSON.stringify({
                 "id": this.props.id
@@ -39,13 +39,10 @@ export default class ProfileCompany extends Component {
                 } else {
 
                     this.setState({
-                        name: data.name1,
-                        lastname: data.lastName1,
-                        id: data.idCandidate,
-                        email: data.email,
-                        phoneNumber: data.phoneNumber,
-                        idCity: data.idCityfk,
-                        description: data.description ? data.description : ''
+                        compName: data.nameCompany,
+                        compEmail: data.companyEmail,
+                        compNumber: data.phoneNumber,
+                        tin: data.tin
                     });
                 }
             })
@@ -56,12 +53,12 @@ export default class ProfileCompany extends Component {
         return (
             <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Input id="compName" type="text" placeholder="Company's name" className="inp up" value={this.state.compName} onChange={(data) => this.setState({ compName: data.target.value })} />
-                    <Input id="tin" type="number" placeholder="T.I.N." className="inp left" value={this.state.tin} onChange={(data) => this.setState({ tin: data.target.value })} />
+                    <Input id="compName" type="text" placeholder="Company's name" className="inp up" value={this.state.compName} />
+                    <Input id="tin" type="number" placeholder="T.I.N." className="inp left" value={this.state.tin} />
                 </div>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Input id="compNumber" type="number" placeholder="Company's number" className="inp right" value={this.state.compNumber} onChange={(data) => this.setState({ compNumber: data.target.value })} />
-                    <Input id="compEmail" type="text" placeholder="Email" className="inp pic" value={this.state.compEmail} onChange={(data) => this.setState({ compEmail: data.target.value })} />
+                    <Input id="compNumber" type="number" placeholder="Company's number" className="inp right" value={this.state.compNumber} />
+                    <Input id="compEmail" type="text" placeholder="Email" className="inp pic" value={this.state.compEmail} />
                 </div>
             </div>
         );

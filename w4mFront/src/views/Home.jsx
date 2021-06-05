@@ -202,7 +202,7 @@ export default class Home extends Component {
                 </div>
 
                 <div className="profile" style={{ display: 'none', width: '100%' }} id='profile'>
-                    <Profile id={this.props.match.params.id} />
+                    <Profile id={this.props.match.params.id} edit={true} />
                 </div>
 
                 {/* Empieza el feed */}

@@ -6,7 +6,8 @@ import { link } from '../assets/url.json';
 import "../css/homeCompany.scss";
 import myphoto from '../assets/userDefault.png';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import PdfView from '../components/PdfView'
+import PdfView from '../components/PdfView';
+import ProfileCan from '../components/ProfileAplicants';
 
 export default class Applications extends Component {
 
@@ -18,6 +19,7 @@ export default class Applications extends Component {
         this.state = {
             applications: [],
             pdf: null,
+            candidateId: null
         }
     }
 
@@ -68,7 +70,7 @@ export default class Applications extends Component {
     }
 
     onDocumentLoadSuccess({ numPages: nextNumPages }) {
-        this.setState({numPages: nextNumPages});
+        this.setState({ numPages: nextNumPages });
     }
 
     render() {
@@ -79,13 +81,16 @@ export default class Applications extends Component {
                     <img id="imagencita" src={logo} alt="w4m" />
                 </div>
 
+                <div style={{ display: 'none', width: '100%' }} id='profile'>
+                    {this.state.candidateId ? <ProfileCan id={this.state.candidateId} edit={false} /> : null}
+                </div>
                 {/* Empieza el feed */}
 
                 <div id="home" className="feedCompany feedAp home">
                     <div className="back" onClick={() => {
                         this.props.history.push(`/Home/company/${this.props.match.params.id}`);
                     }}>
-                        <ArrowBackIcon className="backIcon"/>
+                        <ArrowBackIcon className="backIcon" />
                     </div>
                     {this.state.applications.map((element, i) => {
                         this._imgs[i] = myphoto;
@@ -96,15 +101,25 @@ export default class Applications extends Component {
                                     this.setState({});
                                 }
                             });
-                        console.log(element.approved);
                         return (<Card key={element.idApplication}
                             nameCompany={`${element.name1} ${element.lastName1}`}
                             image={this._decode[i] ? this._decode[i] : this._imgs[i]}
+                            onClickProfile={() => {
+                                this.setState({ candidateId: element.idCandidate });
+                                console.log(element.idCandidate);
+                                const hom = document.getElementById("home");
+                                const rb = document.getElementById("rightbar");
+                                const pr = document.getElementById("profile");
+
+                                hom.setAttribute('style', `display: none !important`);
+                                pr.setAttribute('style', `display: flex !important`);
+                                rb.setAttribute('style', `display: none !important`);
+                            }}
                             onClickView={() => {
                                 console.log(element);
                                 decode(element.cv)
                                     .then(data => {
-                                        this.setState({pdf: data})
+                                        this.setState({ pdf: data })
                                     })
                             }}
                             status={element.approved}
@@ -118,7 +133,7 @@ export default class Applications extends Component {
                 {/* Termina el feed */}
 
                 <div id="rightbar" className="right-barAp">
-                    {this.state.pdf ? <PdfView className="pdfFile" pdf={this.state.pdf}/> : <p className="pdv">SELECT A CV TO VIEW</p>}
+                    {this.state.pdf ? <PdfView className="pdfFile" pdf={this.state.pdf} /> : <p className="pdv">SELECT A CV TO VIEW</p>}
                 </div>
             </div>
         )

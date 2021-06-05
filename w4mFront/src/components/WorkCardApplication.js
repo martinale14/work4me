@@ -37,8 +37,8 @@ export default class WorkCard extends Component {
                         hoverColor="#000000"
                         className="picture"
                     />
-                    <p className="comp-name">{this.props.nameCompany}</p>
-                    <RaisedButton id="rais" text="Look CV" className="del" onClick={this.props.onClickView}/>
+                    <RaisedButton text={this.props.nameCompany} className="del comp-name" onClick={this.props.onClickProfile} />
+                    <RaisedButton id="rais" text="Look CV" className="del" onClick={this.props.onClickView} />
                 </div>
                 <div className="iconosBtn">
                     <div onClick={this.props.onClickAprove}>

@@ -103,30 +103,30 @@ export default class ProfileApplicants extends Component {
                 <Input id="name" type="text" placeholder="Name" className="inp left" value={this.state.name} />
                 <Input id="lastname" type="text" placeholder="Lastname" className="inp right" value={this.state.lastname} />
                 <Input id="id" type="number" placeholder="Identification" className="inp left" value={this.state.id} />
-                    <div style={{ width: '100px' }} />
-                    {this.state.name ?
-                        <Autocomplete
-                            id="combo-box-demo"
-                            options={this.state.cities}
-                            defaultValue={this.state.selectedCity}
-                            getOptionLabel={(option) => option.nameCity}
-                            style={{ width: 150 }}
-                            renderInput={(params) => {
+                <div style={{ width: '100px' }} />
+                {this.state.name ?
+                    <Autocomplete
+                        id="combo-box-demo"
+                        options={this.state.cities}
+                        defaultValue={this.state.selectedCity}
+                        getOptionLabel={(option) => option.nameCity}
+                        style={{ width: 150 }}
+                        renderInput={(params) => {
 
-                                return (<TextField {...params} label="City" />);
+                            return (<TextField {...params} label="City" />);
 
-                            }}
-                            className="inp"
-                            onChange={data => {
-                                if (data.target.textContent) {
-                                    let idC = this.state.cities.filter(city => city.nameCity === data.target.textContent);
-                                    this.setState({
-                                        idCity: idC[0].idCity
-                                    });
-                                }
-                            }}
-                        /> : null
-                    }
+                        }}
+                        className="inp"
+                        onChange={data => {
+                            if (data.target.textContent) {
+                                let idC = this.state.cities.filter(city => city.nameCity === data.target.textContent);
+                                this.setState({
+                                    idCity: idC[0].idCity
+                                });
+                            }
+                        }}
+                    /> : null
+                }
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                     <Input id="date-picker-dialog" type="text" placeholder="Birthday" className="inp" value={this.state.birthday} />
                     <div style={{ width: '20px' }} />
@@ -136,9 +136,12 @@ export default class ProfileApplicants extends Component {
                 <InputMultiline id="id" type="text" placeholder="Description" className="inp" value={this.state.description} onChange={(data) => this.setState({ description: data.target.value })} />
                 <br />
                 <br />
-                <div id="submit" className="submit">
-                    <RaisedButton text="Update" onClick={() => { this.updateCandidate() }} />
-                </div>
+                {
+                    this.props.edit ?
+                        <div id="submit" className="submit">
+                            <RaisedButton text="Update" onClick={() => { this.updateCandidate() }} />
+                        </div> : null
+                }
 
             </div>
         );
