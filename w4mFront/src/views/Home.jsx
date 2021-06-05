@@ -13,6 +13,7 @@ import myphoto from '../assets/userDefault.png';
 import AppCard from '../components/AppCard';
 import CloseIcon from '@material-ui/icons/Close';
 import RaisedButton from '../components/RaisedButton';
+import Profile from '../components/ProfileAplicants';
 
 export default class Home extends Component {
 
@@ -45,10 +46,10 @@ export default class Home extends Component {
 
         this.fileSelector = buildFileSelector();
         this.fileSelector.addEventListener('change', (event) => {
-            if(event.target.files.length === 0){
+            if (event.target.files.length === 0) {
                 let im = this._pdfData
                 this.setState({ pdf: im });
-            }else{
+            } else {
                 let file = event.target.files[0];
                 this._pdfData = file;
                 this.setState({ pdf: URL.createObjectURL(file) });
@@ -144,9 +145,19 @@ export default class Home extends Component {
         return (
             <div className="gridReg">
                 <div className="nav-barReg">
-                    <img id="imagencita" src={logo} alt="w4m"/>
+                    <img id="imagencita" src={logo} alt="w4m" />
                     <div>
-                        <RaisedButton className="miperfil" text="Mi perfil"/>
+                        <RaisedButton className="miperfil" text="My profile" onClick={() => {
+                            const hom = document.getElementById("home");
+                            const ap = document.getElementById("app");
+                            const rb = document.getElementById("rightbar");
+                            const pr = document.getElementById("profile");
+
+                            hom.setAttribute('style', `display: none !important`);
+                            ap.setAttribute('style', `display: none !important`);
+                            pr.setAttribute('style', `display: flex !important`);
+                            rb.setAttribute('style', `display: none !important`);
+                        }} />
                     </div>
                 </div>
                 <div className="left-bar">
@@ -154,9 +165,11 @@ export default class Home extends Component {
                         const hom = document.getElementById("home");
                         const ap = document.getElementById("app");
                         const rb = document.getElementById("rightbar");
+                        const pr = document.getElementById("profile");
 
                         hom.setAttribute('style', `display: flex !important`);
                         ap.setAttribute('style', `display: none !important`);
+                        pr.setAttribute('style', `display: none !important`);
                         rb.setAttribute('style', `display: flex !important`);
                     }}>
                         <FormatIndentIncreaseIcon className="icons" />
@@ -170,23 +183,26 @@ export default class Home extends Component {
                         hom.setAttribute('style', `display: none !important`);
                         ap.setAttribute('style', `display: flex !important`);
                         rb.setAttribute('style', `display: none !important`);
-                        
+
                         this.fetchApplications();
                     }}>
                         <ContactMailIcon className="icons" />
                         <p>Applications</p>
                     </div>
                     <Btn id="signOut" onClick={() => {
-                        console.log("hola");
                         fetch(`${link}/logout`)
                             .then(res => res.text())
                             .then(data => {
-                                if(data === "Desconectado"){
+                                if (data === "Desconectado") {
                                     this.props.history.push("/");
                                 }
                             })
                             .catch(err => console.error(err));
                     }} className="sign-out" text="Sign out" />
+                </div>
+
+                <div style={{ display: 'none', width: '100%' }} id='profile'>
+                    <Profile id={this.props.match.params.id} />
                 </div>
 
                 {/* Empieza el feed */}
@@ -231,7 +247,6 @@ export default class Home extends Component {
                                     this.setState({});
                                 }
                             });
-                        console.log(element);
                         element.nameCity = element.nameCity ? element.nameCity : 'Telecommuting'
                         return (<AppCard key={element.idApplication}
                             text={element.description}
@@ -244,7 +259,7 @@ export default class Home extends Component {
                             onClick={() => {
                                 fetch(`${link}/applications/delete`, {
                                     method: 'DELETE',
-                                    body: JSON.stringify({idApplication: element.idApplication}),
+                                    body: JSON.stringify({ idApplication: element.idApplication }),
                                     headers: {
                                         'Accept': 'application/json',
                                         'Content-Type': 'application/json'
@@ -282,7 +297,7 @@ export default class Home extends Component {
                                 this.setState({
                                     idCat: idCa[0].idCategory
                                 });
-                            }else{
+                            } else {
                                 this.setState({
                                     idCat: ''
                                 });
@@ -302,7 +317,7 @@ export default class Home extends Component {
                                 this.setState({
                                     idCity: idC[0].idCity
                                 });
-                            }else{
+                            } else {
                                 this.setState({
                                     idCity: ''
                                 });
@@ -319,29 +334,26 @@ export default class Home extends Component {
                         filterBody.minSalary = (this.state.value[0] !== 0) ? this.state.value[0] * 1000000 : null;
                         filterBody.maxSalary = (this.state.value[1] !== 100) ? this.state.value[1] * 1000000 : null;
 
-                        console.log(this.state.value);
-                        console.log(filterBody.minSalary, filterBody.maxSalary);
-
-                        if(filterBody.city || filterBody.category || filterBody.maxSalary || filterBody.minSalary){
+                        if (filterBody.city || filterBody.category || filterBody.maxSalary || filterBody.minSalary) {
                             fetch(`${link}/vacancies/filter`, {
                                 method: 'POST',
                                 body: JSON.stringify(filterBody),
                                 headers: {
-                                  'Accept': 'application/json',
-                                  'Content-Type': 'application/json'
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
                                 }
                             }).then(res => res.json())
-                            .then(data => {
-                                if(!data.msg){
-                                    this.setState({
-                                        vacancies: data,
-                                    });
-                                }else{
-                                    alert(data.msg);
-                                }
-                            })
-                            .catch(err => console.error(err));
-                        }else{
+                                .then(data => {
+                                    if (!data.msg) {
+                                        this.setState({
+                                            vacancies: data,
+                                        });
+                                    } else {
+                                        alert(data.msg);
+                                    }
+                                })
+                                .catch(err => console.error(err));
+                        } else {
                             this.fetchVacancies();
                         }
                     }} className="filter" text="Filter" />
@@ -350,10 +362,9 @@ export default class Home extends Component {
                     <div className="close" onClick={() => {
                         const pdf = document.getElementById("alert");
                         pdf.setAttribute('style', 'display: none !important');
-                        console.log(this._pdfData);
                         this._pdfData = null;
                     }}>
-                        <CloseIcon/>
+                        <CloseIcon />
                     </div>
                     <div className="alertBody">
                         <p>Please browse your CV</p>
@@ -361,21 +372,21 @@ export default class Home extends Component {
                             <Btn className="file file2" text="Choose file..." onClick={this.handleFile} />
                             <p>{this._pdfData ? this._pdfData.name : 'No file selected'}</p>
                         </div>
-                        <Btn className="pdfSelector" text="Send request" onClick={async () =>{
-                            if(this.state.idVacant && this.state.idCandidate){
-                                if(this._pdfData){
+                        <Btn className="pdfSelector" text="Send request" onClick={async () => {
+                            if (this.state.idVacant && this.state.idCandidate) {
+                                if (this._pdfData) {
                                     this._toSend = await readPdf(this._pdfData)
                                     this.apply();
                                     const pdf = document.getElementById("alert");
                                     pdf.setAttribute('style', 'display: none !important');
                                     this._pdfData = null;
-                                }else{
+                                } else {
                                     alert("Please select your CV");
                                 }
-                            }else{
+                            } else {
                                 alert("Something is happening...");
                             }
-                        }}/>
+                        }} />
                     </div>
                 </div>
             </div>

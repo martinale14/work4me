@@ -11,6 +11,8 @@ import Input from '../components/Input';
 import InputMultiline from '../components/InputMultiline';
 import "../css/homeCompany.scss"
 import myphoto from '../assets/userDefault.png';
+import RaisedButton from '../components/RaisedButton';
+import Profile from '../components/ProfileCompany';
 
 export default class HomeCompany extends Component {
 
@@ -90,8 +92,22 @@ export default class HomeCompany extends Component {
             <div className="gridReg">
                 <div className="nav-barReg">
                     <img id="imagencita" src={logo} alt="w4m" />
+                    <div>
+                        <RaisedButton className="miperfil" text="My company" onClick={() => {
+                            const hom = document.getElementById("home");
+                            const rb = document.getElementById("rightbar");
+                            const pr = document.getElementById("profile");
+
+                            hom.setAttribute('style', `display: none !important`);
+                            pr.setAttribute('style', `display: flex !important`);
+                            rb.setAttribute('style', `display: none !important`);
+                        }} />
+                    </div>
                 </div>
 
+                <div style={{ display: 'none', width: '100%' }} id='profile'>
+                    <Profile id={this.props.match.params.id} />
+                </div>
                 {/* Empieza el feed */}
 
                 <div id="home" className="feedCompany home">
@@ -232,7 +248,7 @@ export default class HomeCompany extends Component {
                         fetch(`${link}/logout`)
                             .then(res => res.text())
                             .then(data => {
-                                if(data === "Desconectado"){
+                                if (data === "Desconectado") {
                                     this.props.history.push("/");
                                 }
                             })

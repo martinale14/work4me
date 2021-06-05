@@ -161,7 +161,9 @@ router.put('/edit', async (req, res) => {
 
         } else {
 
-            await pool.query('CALL editCandidate(?,?,?,?)', [req.body.email, req.body.phoneNumber, req.body.description, req.body.idCandidate]);
+            await pool.query('CALL editCandidate(?,?,?,?,?)', [req.body.email, req.body.phoneNumber, req.body.description, req.body.idCity, req.body.idCandidate]);
+
+            res.json({ msg: 'Update was succesfull' });
 
         }
 

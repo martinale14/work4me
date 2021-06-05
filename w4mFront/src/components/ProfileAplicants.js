@@ -1,4 +1,11 @@
 import { React, Component } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import "../css/register.scss";
+import RaisedButton from '../components/RaisedButton';
+import Input from '../components/Input';
+import { link } from '../assets/url.json';
+import InputMultiline from '../components/InputMultiline';
 
 export default class ProfileApplicants extends Component {
 
@@ -12,14 +19,16 @@ export default class ProfileApplicants extends Component {
             email: '',
             phoneNumber: '',
             birthday: '',
-            idCity: null,
-            selectedCity: ''
+            idCity: '',
+            description: '',
+            selectedCity: { nameCity: '' }
         }
 
         if (this.state.cities.length <= 0) {
             this.fetchCities();
         }
-        if (this.state.selectedCity) {
+        if (this.state.selectedCity.nameCity === '') {
+            console.log('hola');
             this.fetchMyData();
         }
     }
@@ -34,10 +43,10 @@ export default class ProfileApplicants extends Component {
     }
 
     fetchMyData() {
-        fetch(`${link}/userCandidate/${this.props.idCandidate}`, {
+        fetch(`${link}/userCandidate/${this.props.id}`, {
             method: 'POST',
             body: JSON.stringify({
-                "id": this.props.idCandidate
+                "id": this.props.id
             }),
             headers: {
                 'Accept': 'application/json',
@@ -49,15 +58,19 @@ export default class ProfileApplicants extends Component {
                 if (data.msg) {
                     alert(data.msg)
                 } else {
+                    let bt = data.birthday.split('-');
+                    bt[2] = bt[2].charAt(1) === 'T' ? bt[2].charAt(0) : bt[2].charAt(0) + bt[2].charAt(1);
+                    let sel = this.state.cities.filter((city) => city.idCity === data.idCityfk);
                     this.setState({
-                        name: '',
-                        lastname: '',
-                        id: '',
-                        email: '',
-                        phoneNumber: '',
-                        birthday: '',
-                        idCity: null,
-                        selectedCity: 'usbekistan'
+                        name: data.name1,
+                        lastname: data.lastName1,
+                        id: data.idCandidate,
+                        email: data.email,
+                        phoneNumber: data.phoneNumber,
+                        birthday: bt.join('-'),
+                        idCity: data.idCityfk,
+                        selectedCity: sel[0],
+                        description: data.description ? data.description : ''
                     });
                 }
             })
@@ -71,7 +84,8 @@ export default class ProfileApplicants extends Component {
                 "email": this.state.email,
                 "phoneNumber": this.state.phoneNumber,
                 "idCity": this.state.idCity,
-                "idCandidate": this.props.idCandidate
+                "description": this.state.description,
+                "idCandidate": this.props.id
             }),
             headers: {
                 'Accept': 'application/json',
@@ -85,47 +99,50 @@ export default class ProfileApplicants extends Component {
 
     render() {
         return (
-            <div>
-                <Input id="name" type="text" placeholder="Name" className="inp left" value={this.state.name} />
-                <Input id="lastname" type="text" placeholder="Lastname" className="inp right" value={this.state.lastname} />
-                <Input id="id" type="number" placeholder="Identification" className="inp left" value={this.state.id} />
-                <Autocomplete
-                    value={this.state.selectedCity}
-                    id="combo-box-demo"
-                    options={this.state.cities}
-                    getOptionLabel={(option) => option.nameCity}
-                    style={{ width: 300 }}
-                    renderInput={(params) => {
+            <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Input id="name" type="text" placeholder="Name" className="inp" value={this.state.name} />
+                    <div style={{ width: '20px' }} />
+                    <Input id="lastname" type="text" placeholder="Lastname" className="inp" value={this.state.lastname} />
+                </div>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Input id="id" type="number" placeholder="Identification" className="inp" value={this.state.id} />
+                    <div style={{ width: '100px' }} />
+                    {this.state.name ?
+                        <Autocomplete
+                            id="combo-box-demo"
+                            options={this.state.cities}
+                            defaultValue={this.state.selectedCity}
+                            getOptionLabel={(option) => option.nameCity}
+                            style={{ width: 150 }}
+                            renderInput={(params) => {
 
-                        return (<TextField {...params} label="City" />);
+                                return (<TextField {...params} label="City" />);
 
-                    }}
-                    className="inp right"
-                    onChange={data => {
-                        if (data.target.textContent) {
-                            let idC = this.state.cities.filter(city => city.nameCity === data.target.textContent);
-                            this.setState({
-                                selectedCity: data.target.textContent,
-                                idCity: idC[0].idCity
-                            });
-                        }
-                    }}
-                />
-                <Input id="date-picker-dialog" type="text" placeholder="Birthday" className="inp left" value={this.state.birthday} />
-                <Input id="phone" type="number" placeholder="Phone number" className="inp right" value={this.state.phoneNumber} onChange={(data) => this.setState({ phoneNumber: data.target.value })} />
-                <Input id="email" type="text" placeholder="Email" className="inp pic" value={this.state.email} onChange={(data) => this.setState({ email: data.target.value })} />
+                            }}
+                            className="inp"
+                            onChange={data => {
+                                if (data.target.textContent) {
+                                    let idC = this.state.cities.filter(city => city.nameCity === data.target.textContent);
+                                    this.setState({
+                                        idCity: idC[0].idCity
+                                    });
+                                }
+                            }}
+                        /> : null
+                    }
+                </div>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Input id="date-picker-dialog" type="text" placeholder="Birthday" className="inp" value={this.state.birthday} />
+                    <div style={{ width: '20px' }} />
+                    <Input id="phone" type="number" placeholder="Phone number" className="inp" value={this.state.phoneNumber} onChange={(data) => this.setState({ phoneNumber: data.target.value })} />
+                </div>
+                <Input id="email" type="text" placeholder="Email" className="inp" value={this.state.email} onChange={(data) => this.setState({ email: data.target.value })} />
+                <InputMultiline id="id" type="text" placeholder="Description" className="inp" value={this.state.description} onChange={(data) => this.setState({ description: data.target.value })} />
+                <br />
+                <br />
                 <div id="submit" className="submit">
-                    <Btn text="Sign up" onClick={() => {
-                        console.log(this.state);
-                        if (this.state.name && this.state.lastname && this.state.birthday && this.state.idCity
-                            && this.state.id && this.state.email && this.state.phoneNumber) {
-
-                            this.updateCandidate();
-
-                        } else {
-                            alert('Completa todos los campos');
-                        }
-                    }} />
+                    <RaisedButton text="Update" onClick={() => { this.updateCandidate() }} />
                 </div>
 
             </div>
