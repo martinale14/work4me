@@ -201,7 +201,7 @@ export default class Home extends Component {
                     }} className="sign-out" text="Sign out" />
                 </div>
 
-                <div style={{ display: 'none', width: '100%' }} id='profile'>
+                <div className="profile" style={{ display: 'none', width: '100%' }} id='profile'>
                     <Profile id={this.props.match.params.id} />
                 </div>
 

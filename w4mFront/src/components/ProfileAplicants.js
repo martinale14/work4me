@@ -99,14 +99,10 @@ export default class ProfileApplicants extends Component {
 
     render() {
         return (
-            <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Input id="name" type="text" placeholder="Name" className="inp" value={this.state.name} />
-                    <div style={{ width: '20px' }} />
-                    <Input id="lastname" type="text" placeholder="Lastname" className="inp" value={this.state.lastname} />
-                </div>
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Input id="id" type="number" placeholder="Identification" className="inp" value={this.state.id} />
+            <div className="reg">
+                <Input id="name" type="text" placeholder="Name" className="inp left" value={this.state.name} />
+                <Input id="lastname" type="text" placeholder="Lastname" className="inp right" value={this.state.lastname} />
+                <Input id="id" type="number" placeholder="Identification" className="inp left" value={this.state.id} />
                     <div style={{ width: '100px' }} />
                     {this.state.name ?
                         <Autocomplete
@@ -131,7 +127,6 @@ export default class ProfileApplicants extends Component {
                             }}
                         /> : null
                     }
-                </div>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                     <Input id="date-picker-dialog" type="text" placeholder="Birthday" className="inp" value={this.state.birthday} />
                     <div style={{ width: '20px' }} />
