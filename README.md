@@ -1,5 +1,12 @@
 Work4me
 
+Members Universidad Autónoma de Occidente:
+    - Angie Vanessa Fajardo Aristizábal - 2190229
+    - Martín Alejandro Escobar Espinel - 2180194
+    - Juan Pablo Rivera Gonzáles - 2180195
+
+Tutor: David Alejandro Castro Benavides
+
 Welcome to Work4me!!
 
 Requirements:
