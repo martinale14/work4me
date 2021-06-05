@@ -83,7 +83,7 @@ export default class Applications extends Component {
 
                 <div className="profi2" style={{ display: 'none', width: '100%' }} id='profile'>
                     <div className="backto" onClick={() => {
-                        this.setState({pdf: null});
+                        this.setState({ pdf: null });
                         const hom = document.getElementById("home");
                         const rb = document.getElementById("rightbar");
                         const pr = document.getElementById("profile");
@@ -104,7 +104,7 @@ export default class Applications extends Component {
                     }}>
                         <ArrowBackIcon className="backIcon" />
                     </div>
-                    {this.state.applications.map((element, i) => {
+                    {this.state.applications.length > 0 ? this.state.applications.map((element, i) => {
                         this._imgs[i] = myphoto;
                         decode(element.profilePic)
                             .then(data => {
@@ -138,7 +138,7 @@ export default class Applications extends Component {
                             onClickAprove={() => { this.updateStatus(1, element.idApplication) }}
                             onClickReject={() => { this.updateStatus(0, element.idApplication) }}
                         />)
-                    })}
+                    }) : null}
                     <br /><br />
                 </div>
 

@@ -265,7 +265,7 @@ export default class Home extends Component {
                     <br /><br />
                 </div>
                 <div id="app" className="feed apl">
-                    {this.state.applications.map((element, i) => {
+                    {this.state.applications.length > 0 ? this.state.applications.map((element, i) => {
                         this._images[i] = myphoto;
                         decode(element.logo)
                             .then(data => {
@@ -316,7 +316,7 @@ export default class Home extends Component {
                                     .catch(err => console.error(err));
                             }}
                         />)
-                    })}
+                    }) : null}
                     <br /><br />
                 </div>
 
