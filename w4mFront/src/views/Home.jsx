@@ -41,13 +41,9 @@ export default class Home extends Component {
     }
 
     handleFile = () => {
-        this.fileSelector.click();
-    }
-
-    componentDidMount() {
-
         this.fileSelector = buildFileSelector();
         this.fileSelector.addEventListener('change', (event) => {
+            console.log(event.target.files.length);
             if (event.target.files.length === 0) {
                 let im = this._pdfData
                 this.setState({ pdf: im });
@@ -57,6 +53,10 @@ export default class Home extends Component {
                 this.setState({ pdf: URL.createObjectURL(file) });
             }
         });
+        this.fileSelector.click();
+    }
+
+    componentDidMount() {
 
         if (this.state.cities.length <= 0) {
             this.fetchCities();
@@ -414,6 +414,7 @@ export default class Home extends Component {
                         </div>
                         <Btn className="pdfSelector" text="Send request" onClick={async () => {
                             if (this.state.idVacant && this.state.idCandidate) {
+
                                 if (this._pdfData) {
                                     this._toSend = await readPdf(this._pdfData)
                                     this.apply();
