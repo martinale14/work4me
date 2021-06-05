@@ -18,7 +18,9 @@ Follow this steps to execute the project:
 
 - The database backup is located in documents/Work4MeBackUp.sql
 
-- Open file with MysqlWorkbench and execute it
+- Open MysqlWorkbench and create a database called work4me
+
+- Open file in MysqlWorkbench and execute it
 
 - You need to create a mysql user with this credentials:
     -Login name: work4me_Admin
