@@ -34,7 +34,7 @@ Follow this steps to execute the project:
 ALERT: 'DONT CLOSE THE TERMINAL or POWER SHELL doing this is going to turn down our server and the applications is not going to work'
 
 - you need to edit de w4mFront/src/assets/url.json file to put your own ip direction please replace the link`s value to:
-    "http://your computer`s ip addres goes here:4000"
+    "http://your_computer`s_ip_addres_goes_here:4000"
     - If you don`t know your computer´s ip addres:
         - On windows open a terminal and type ipconfig and your ip addres is going to be next to IPV4 direction
         - On mac os open the terminal and if your computer is using wired network use the command ipconfig getifaddr en1 then if your network is wifi use the command ipconfig getifaddr en0
