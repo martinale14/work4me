@@ -13,6 +13,7 @@ import "../css/homeCompany.scss"
 import myphoto from '../assets/userDefault.png';
 import RaisedButton from '../components/RaisedButton';
 import Profile from '../components/ProfileCompany';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 export default class HomeCompany extends Component {
 
@@ -105,7 +106,18 @@ export default class HomeCompany extends Component {
                     </div>
                 </div>
 
-                <div style={{ display: 'none', width: '100%' }} id='profile'>
+                <div className="profi2" style={{ display: 'none', width: '100%' }} id='profile'>
+                    <div className="backto" onClick={() => {
+                        const hom = document.getElementById("home");
+                        const rb = document.getElementById("rightbar");
+                        const pr = document.getElementById("profile");
+
+                        hom.setAttribute('style', `display: flex !important`);
+                        pr.setAttribute('style', `display: none !important`);
+                        rb.setAttribute('style', `display: flex !important`);
+                    }}>
+                        <ArrowBackIcon className="backIcon2" />
+                    </div>
                     <Profile id={this.props.match.params.id} />
                 </div>
                 {/* Empieza el feed */}

@@ -21,11 +21,17 @@ export default class ProfileCompany extends Component {
 
     }
 
-    fetchMyData() {
-        fetch(`${link}/userCompany/${this.props.id}`, {
+    componentWillReceiveProps(nextProps){
+        this.fetchMyData(nextProps.id);
+        this.setState()
+    }
+
+    fetchMyData(id) {
+        id = id ? id : this.props.id
+        fetch(`${link}/userCompany/${id}`, {
             method: 'POST',
             body: JSON.stringify({
-                "id": this.props.id
+                "id": id
             }),
             headers: {
                 'Accept': 'application/json',
@@ -51,15 +57,13 @@ export default class ProfileCompany extends Component {
 
     render() {
         return (
-            <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Input id="compName" type="text" placeholder="Company's name" className="inp up" value={this.state.compName} />
-                    <Input id="tin" type="number" placeholder="T.I.N." className="inp left" value={this.state.tin} />
+            <div className="profile2">
+                <Input id="compName" type="text" placeholder="Company's name" className="upPro" value={this.state.compName} />
+                <div className="prop">
+                    <Input id="tin" type="number" placeholder="T.I.N." className="leftPro2" value={this.state.tin} />
+                    <Input id="compNumber" type="number" placeholder="Company's number" className="rightPro2" value={this.state.compNumber} />
                 </div>
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Input id="compNumber" type="number" placeholder="Company's number" className="inp right" value={this.state.compNumber} />
-                    <Input id="compEmail" type="text" placeholder="Email" className="inp pic" value={this.state.compEmail} />
-                </div>
+                <Input id="compEmail" type="text" placeholder="Email" className="upPro" value={this.state.compEmail} />
             </div>
         );
     }

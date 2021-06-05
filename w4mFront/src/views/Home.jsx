@@ -154,10 +154,12 @@ export default class Home extends Component {
                             const ap = document.getElementById("app");
                             const rb = document.getElementById("rightbar");
                             const pr = document.getElementById("profile");
+                            const pr2 = document.getElementById("profileOther");
 
                             hom.setAttribute('style', `display: none !important`);
                             ap.setAttribute('style', `display: none !important`);
                             pr.setAttribute('style', `display: flex !important`);
+                            pr2.setAttribute('style', `display: none !important`);
                             rb.setAttribute('style', `display: none !important`);
                         }} />
                     </div>
@@ -209,11 +211,11 @@ export default class Home extends Component {
                     }} className="sign-out" text="Sign out" />
                 </div>
 
-                <div className="profileOther" style={{ display: 'none', width: '100%' }} id='profileOther'>
+                <div className="profi" style={{ display: 'none', width: '100%' }} id='profileOther'>
                     {this.state.tin ? <ProfileOther id={this.state.tin} /> : null}
                 </div>
 
-                <div className="profile" style={{ display: 'none', width: '100%' }} id='profile'>
+                <div className="profi" style={{ display: 'none', width: '100%' }} id='profile'>
                     <Profile id={this.props.match.params.id} edit={true} />
                 </div>
 
