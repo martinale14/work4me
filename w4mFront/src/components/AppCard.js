@@ -9,11 +9,11 @@ import Cancel from '@material-ui/icons/Cancel';
 
 export default class AppCard extends Component {
 
-    rechazar(status){
-        if(status === "true"){
-            return (<div><HighlightOffIcon className="ic"/></div>)
-        }else{
-            return (<div><Cancel className="icCan"/></div>)
+    rechazar(status) {
+        if (status === "true") {
+            return (<div><HighlightOffIcon className="ic" /></div>)
+        } else {
+            return (<div><Cancel className="icCan" /></div>)
         }
     }
 
@@ -30,8 +30,8 @@ export default class AppCard extends Component {
                         hoverColor="#000000"
                         className="picture"
                     />
-                    <p className="comp-name">{this.props.nameCompany}</p>
-                    <RaisedButton id="rais" text="Cancel request" className="del" onClick={this.props.onClick}/>
+                    <RaisedButton text={this.props.nameCompany} className="comp-name" onClick={this.props.onClickProfile} />
+                    <RaisedButton id="rais" text="Cancel request" className="del" onClick={this.props.onClick} />
                 </div>
                 <div className="job">
                     <p className="job2">{`${this.props.vacant} / $${this.props.salary} / ${this.props.city}`}</p>
@@ -39,15 +39,15 @@ export default class AppCard extends Component {
                 </div>
                 <div className="iconos">
                     <div>
-                        <CheckCircleIcon className="ic"/>
+                        <CheckCircleIcon className="ic" />
                         <p>Applied</p>
                     </div>
                     <div>
-                        {this.props.status === 1 ? <CheckCircleIcon className="icApp"/> : <CheckCircleOutlineIcon className="ic"/>}
+                        {this.props.status === 1 ? <CheckCircleIcon className="icApp" /> : <CheckCircleOutlineIcon className="ic" />}
                         <p>Approved</p>
                     </div>
                     <div>
-                        {this.props.status === 0 ? <Cancel className="icCan"/> : <HighlightOffIcon className="ic"/>}
+                        {this.props.status === 0 ? <Cancel className="icCan" /> : <HighlightOffIcon className="ic" />}
                         <p>Rejected</p>
                     </div>
                 </div>

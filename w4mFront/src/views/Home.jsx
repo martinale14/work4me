@@ -14,6 +14,7 @@ import AppCard from '../components/AppCard';
 import CloseIcon from '@material-ui/icons/Close';
 import RaisedButton from '../components/RaisedButton';
 import Profile from '../components/ProfileAplicants';
+import ProfileOther from '../components/ProfileCompany';
 
 export default class Home extends Component {
 
@@ -35,6 +36,7 @@ export default class Home extends Component {
             idCandidate: '',
             pdf: '',
             applications: [],
+            tin: null
         }
     }
 
@@ -166,10 +168,12 @@ export default class Home extends Component {
                         const ap = document.getElementById("app");
                         const rb = document.getElementById("rightbar");
                         const pr = document.getElementById("profile");
+                        const pro = document.getElementById("profileOther");
 
                         hom.setAttribute('style', `display: flex !important`);
                         ap.setAttribute('style', `display: none !important`);
                         pr.setAttribute('style', `display: none !important`);
+                        pro.setAttribute('style', `display: none !important`);
                         rb.setAttribute('style', `display: flex !important`);
                     }}>
                         <FormatIndentIncreaseIcon className="icons" />
@@ -179,9 +183,13 @@ export default class Home extends Component {
                         const hom = document.getElementById("home");
                         const ap = document.getElementById("app");
                         const rb = document.getElementById("rightbar");
+                        const pr = document.getElementById("profile");
+                        const pro = document.getElementById("profileOther");
 
                         hom.setAttribute('style', `display: none !important`);
                         ap.setAttribute('style', `display: flex !important`);
+                        pr.setAttribute('style', `display: none !important`);
+                        pro.setAttribute('style', `display: none !important`);
                         rb.setAttribute('style', `display: none !important`);
 
                         this.fetchApplications();
@@ -199,6 +207,10 @@ export default class Home extends Component {
                             })
                             .catch(err => console.error(err));
                     }} className="sign-out" text="Sign out" />
+                </div>
+
+                <div className="profileOther" style={{ display: 'none', width: '100%' }} id='profileOther'>
+                    {this.state.tin ? <ProfileOther id={this.state.tin} /> : null}
                 </div>
 
                 <div className="profile" style={{ display: 'none', width: '100%' }} id='profile'>
@@ -225,6 +237,19 @@ export default class Home extends Component {
                             city={element.nameCity}
                             nameCompany={element.nameCompany}
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
+                            onClickProfile={() => {
+                                this.setState({ tin: element.idCompanyfk });
+
+                                const hom = document.getElementById("home");
+                                const ap = document.getElementById("app");
+                                const rb = document.getElementById("rightbar");
+                                const pr = document.getElementById("profileOther");
+
+                                hom.setAttribute('style', `display: none !important`);
+                                ap.setAttribute('style', `display: none !important`);
+                                pr.setAttribute('style', `display: flex !important`);
+                                rb.setAttribute('style', `display: none !important`);
+                            }}
                             onClick={() => {
                                 const pdf = document.getElementById("alert");
                                 pdf.setAttribute('style', 'display: flex !important');
@@ -256,6 +281,19 @@ export default class Home extends Component {
                             nameCompany={element.nameCompany}
                             status={element.approved}
                             image={this._decode[i] ? this._decode[i] : this._images[i]}
+                            onClickProfile={() => {
+                                this.setState({ tin: element.idCompanyfk });
+
+                                const hom = document.getElementById("home");
+                                const ap = document.getElementById("app");
+                                const rb = document.getElementById("rightbar");
+                                const pr = document.getElementById("profileOther");
+
+                                hom.setAttribute('style', `display: none !important`);
+                                ap.setAttribute('style', `display: none !important`);
+                                pr.setAttribute('style', `display: flex !important`);
+                                rb.setAttribute('style', `display: none !important`);
+                            }}
                             onClick={() => {
                                 fetch(`${link}/applications/delete`, {
                                     method: 'DELETE',

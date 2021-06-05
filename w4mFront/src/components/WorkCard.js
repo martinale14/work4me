@@ -17,16 +17,16 @@ export default class WorkCard extends Component {
                         hoverColor="#000000"
                         className="picture"
                     />
-                    <p className="comp-name">{this.props.nameCompany}</p>
+                    <RaisedButton text={this.props.nameCompany} className="comp-name" onClick={this.props.onClickProfile} />
                 </div>
                 <div className="job">
                     <p className="job2">{`${this.props.vacant} / $${this.props.salary} / ${this.props.city}`}</p>
                 </div>
                 <div className="description">
-                    <p>{this.props.text}</p>                    
+                    <p>{this.props.text}</p>
                 </div>
                 <div className="aply">
-                    <RaisedButton id="apply" text="Apply" className="apply" onClick={this.props.onClick}/>
+                    <RaisedButton id="apply" text="Apply" className="apply" onClick={this.props.onClick} />
                 </div>
             </div>
         );
