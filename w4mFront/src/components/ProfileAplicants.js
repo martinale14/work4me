@@ -2,6 +2,7 @@ import { React, Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import "../css/register.scss";
+import '../css/homeCompany.scss'
 import RaisedButton from '../components/RaisedButton';
 import Input from '../components/Input';
 import { link } from '../assets/url.json';
@@ -20,7 +21,7 @@ export default class ProfileApplicants extends Component {
             phoneNumber: '',
             birthday: '',
             idCity: '',
-            description: '',
+            description: null,
             selectedCity: { nameCity: '' }
         }
 
@@ -33,6 +34,11 @@ export default class ProfileApplicants extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        this.fetchMyData(nextProps.id);
+        this.setState()
+    }
+
     fetchCities() {
         fetch(`${link}/cities`)
             .then(res => res.json())
@@ -42,11 +48,12 @@ export default class ProfileApplicants extends Component {
             .catch(err => console.error(err));
     }
 
-    fetchMyData() {
-        fetch(`${link}/userCandidate/${this.props.id}`, {
+    fetchMyData(id) {
+        id = id ? id : this.props.id
+        fetch(`${link}/userCandidate/${id}`, {
             method: 'POST',
             body: JSON.stringify({
-                "id": this.props.id
+                "id": id
             }),
             headers: {
                 'Accept': 'application/json',
@@ -99,11 +106,10 @@ export default class ProfileApplicants extends Component {
 
     render() {
         return (
-            <div className="reg">
-                <Input id="name" type="text" placeholder="Name" className="inp left" value={this.state.name} />
-                <Input id="lastname" type="text" placeholder="Lastname" className="inp right" value={this.state.lastname} />
-                <Input id="id" type="number" placeholder="Identification" className="inp left" value={this.state.id} />
-                <div style={{ width: '100px' }} />
+            <div className="profile">
+                <Input id="name" type="text" placeholder="Name" className="inpPro leftPro" value={this.state.name} />
+                <Input id="lastname" type="text" placeholder="Lastname" className="inpPro rightPro" value={this.state.lastname} />
+                <Input id="id" type="number" placeholder="Identification" className="inpPro leftPro" value={this.state.id} />
                 {this.state.name ?
                     <Autocomplete
                         id="combo-box-demo"
@@ -116,7 +122,7 @@ export default class ProfileApplicants extends Component {
                             return (<TextField {...params} label="City" />);
 
                         }}
-                        className="inp"
+                        className="inpPro rightPro"
                         onChange={data => {
                             if (data.target.textContent) {
                                 let idC = this.state.cities.filter(city => city.nameCity === data.target.textContent);
@@ -127,22 +133,18 @@ export default class ProfileApplicants extends Component {
                         }}
                     /> : null
                 }
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <Input id="date-picker-dialog" type="text" placeholder="Birthday" className="inp" value={this.state.birthday} />
-                    <div style={{ width: '20px' }} />
-                    <Input id="phone" type="number" placeholder="Phone number" className="inp" value={this.state.phoneNumber} onChange={(data) => this.setState({ phoneNumber: data.target.value })} />
-                </div>
-                <Input id="email" type="text" placeholder="Email" className="inp" value={this.state.email} onChange={(data) => this.setState({ email: data.target.value })} />
-                <InputMultiline id="id" type="text" placeholder="Description" className="inp" value={this.state.description} onChange={(data) => this.setState({ description: data.target.value })} />
-                <br />
-                <br />
-                {
+                <Input id="date-picker-dialog" type="text" placeholder="Birthday" className="inpPro leftPro" value={this.state.birthday} />
+                <Input id="phone" type="number" placeholder="Phone number" className="inpPro rightPro" value={this.state.phoneNumber} onChange={(data) => this.setState({ phoneNumber: data.target.value })} />
+                <Input id="email" type="text" placeholder="Email" className="inpPro picPro" value={this.state.email} onChange={(data) => this.setState({ email: data.target.value })} />
+                <div className="inpPro multi">
+                    <InputMultiline id="id" type="text" placeholder="Description" className="multi2" value={this.state.description} onChange={(data) => this.setState({ description: data.target.value })} />
+                    {
                     this.props.edit ?
-                        <div id="submit" className="submit">
+                        <div id="submit" className="submitPro">
                             <RaisedButton text="Update" onClick={() => { this.updateCandidate() }} />
                         </div> : null
-                }
-
+                    }
+                </div>
             </div>
         );
     }

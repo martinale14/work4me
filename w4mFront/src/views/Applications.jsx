@@ -81,7 +81,19 @@ export default class Applications extends Component {
                     <img id="imagencita" src={logo} alt="w4m" />
                 </div>
 
-                <div style={{ display: 'none', width: '100%' }} id='profile'>
+                <div className="profi2" style={{ display: 'none', width: '100%' }} id='profile'>
+                    <div className="backto" onClick={() => {
+                        this.setState({pdf: null});
+                        const hom = document.getElementById("home");
+                        const rb = document.getElementById("rightbar");
+                        const pr = document.getElementById("profile");
+
+                        hom.setAttribute('style', `display: flex !important`);
+                        pr.setAttribute('style', `display: none !important`);
+                        rb.setAttribute('style', `display: flex !important`);
+                    }}>
+                        <ArrowBackIcon className="backIcon2" />
+                    </div>
                     {this.state.candidateId ? <ProfileCan id={this.state.candidateId} edit={false} /> : null}
                 </div>
                 {/* Empieza el feed */}
