@@ -123,7 +123,7 @@ export default class HomeCompany extends Component {
                 {/* Empieza el feed */}
 
                 <div id="home" className="feedCompany home">
-                    {this.state.vacancies.map((element, i) => {
+                    {this.state.vacancies.length > 0 ? this.state.vacancies.map((element, i) => {
                         this._images[i] = myphoto;
                         decode(element.logo)
                             .then(data => {
@@ -162,7 +162,7 @@ export default class HomeCompany extends Component {
                                     .catch(err => console.error(err));
                             }}
                         />)
-                    })}
+                    }) : null}
                     <br /><br />
                 </div>
 

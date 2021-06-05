@@ -128,7 +128,7 @@ export default class Register extends Component {
                 "email": this.state.compEmail,
                 "password": this.state.compPass,
                 "phoneNumber": this.state.compNumber,
-                "logo": this._imageData
+                "logo": this._toSend
             }),
             headers: {
                 'Accept': 'application/json',
@@ -136,7 +136,7 @@ export default class Register extends Component {
             }
         })
             .then(res => res.json())
-            .then(data => console.log(data.msg))
+            .then(data => alert(data.msg))
             .catch(err => console.error(err))
     }
 
@@ -259,11 +259,10 @@ export default class Register extends Component {
                     <Input id="LRlastname" type="text" placeholder="L.R. Lastname" className="inp right" value={this.state.lrLastname} onChange={(data) => this.setState({ lrLastname: data.target.value })} />
                     <Input id="compEmail" type="text" placeholder="Email" className="inp pic" value={this.state.compEmail} onChange={(data) => this.setState({ compEmail: data.target.value })} />
                     <Input id="passwordCom" type="password" placeholder="Password" className="inp down" value={this.state.compPass} onChange={(data) => this.setState({ compPass: data.target.value })} />
-                    <Input id="password2Com" type="password" placeholder="Password confirmation" className="inp down" />
+                    <Input id="password2Com" type="password" placeholder="Password confirmation" className="inp down" value={this.state.compPass2} onChange={(data) => this.setState({ compPass2: data.target.value })} />
                     <div id="submit" className="submit">
                         <Btn text="Sign up" onClick={async () => {
 
-                            console.log(this.state)
                             if (this.state.compName && this.state.compEmail && this.state.tin && this.state.compNumber
                                 && this.state.compPass && this.state.lrName && this.state.lrLastname
                                 && this.state.compPass2 && this._imageData) {
