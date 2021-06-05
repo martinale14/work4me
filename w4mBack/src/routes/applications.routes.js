@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
 router.post('/requests', async (req, res) => {
 
     try {
-        let rows = await pool.query(`SELECT ap.*, ca.name1, ca.name2, ca.lastName1, ca.lastName2, ca.profilePic 
+        let rows = await pool.query(`SELECT ap.*, ca.idCandidate, ca.name1, ca.name2, ca.lastName1, ca.lastName2, ca.profilePic 
         FROM applications ap 
         INNER JOIN candidates ca 
         ON ap.idCandidatefk = ca.idCandidate 
