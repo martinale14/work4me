@@ -45,6 +45,6 @@ ALERT: 'DONT CLOSE THE TERMINAL or POWER SHELL doing this is going to turn down 
 
 - Then in the console you have to run this commands first 'npm install -f', when this command finish please execute 'npm start', this is going to start the react application on your computer at port 3000
 
-- So to execute your application open the browser you want then go to http://your computer`s ip addres goes here:3000 
+- So to execute your application open the browser you want then go to http://your_computer`s_ip_addres_goes_here:3000 
 
 Happy Hacking :)
