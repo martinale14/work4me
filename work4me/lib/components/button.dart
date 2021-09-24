@@ -14,8 +14,8 @@ class Button extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(100)),
         onTap: () {},
         child: Container(
-          width: 250,
-          height: 70,
+          width: MediaQuery.of(context).size.width * 0.6,
+          height: MediaQuery.of(context).size.height * 0.08,
           alignment: Alignment.center,
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(100))),
