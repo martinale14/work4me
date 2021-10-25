@@ -9,7 +9,7 @@ import Input from '../components/Input';
 import FileChooser from '../components/FileChooser'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { link } from '../assets/url.json';
+
 import MyPhoto from '../assets/userDefault.png';
 
 export default class Register extends Component {
@@ -85,7 +85,7 @@ export default class Register extends Component {
     }
 
     fetchCities() {
-        fetch(`${link}/cities`)
+        fetch(`/api/cities`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ cities: data });
@@ -94,7 +94,7 @@ export default class Register extends Component {
     }
 
     registerCandidate() {
-        fetch(`${link}/register/candidate`, {
+        fetch(`/api/register/candidate`, {
             method: 'POST',
             body: JSON.stringify({
                 "id": this.state.id,
@@ -118,7 +118,7 @@ export default class Register extends Component {
     }
 
     registerCompany() {
-        fetch(`${link}/register/company`, {
+        fetch(`/api/register/company`, {
             method: 'POST',
             body: JSON.stringify({
                 "tin": this.state.tin,

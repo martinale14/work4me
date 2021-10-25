@@ -28,12 +28,13 @@ app.use(passport.session());
 app.use(cors());
 
 //Routes
-app.use(require('./routes/main.routes'));
-app.use(require('./routes/authentications.routes'));
-app.use('/register/candidate', require('./routes/registerApplicant.routes'));
-app.use('/register/company', require('./routes/registerCompany.routes'));
-app.use('/vacancies', require('./routes/vacancies.routes'));
-app.use('/applications', require('./routes/applications.routes'));
+app.use('/api', require('./routes/main.routes'));
+app.use('/api', require('./routes/authentications.routes'));
+app.use('/api/register/candidate', require('./routes/registerApplicant.routes'));
+app.use('/api/register/company', require('./routes/registerCompany.routes'));
+app.use('/api/vacancies', require('./routes/vacancies.routes'));
+app.use('/api/applications', require('./routes/applications.routes'));
+app.use(require('./routes/browser.routes'));
 
 //Starting Server
 app.listen(app.get('port'), () => {

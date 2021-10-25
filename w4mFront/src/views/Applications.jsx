@@ -2,7 +2,7 @@ import { React, Component } from 'react';
 import Card from '../components/WorkCardApplication';
 import "../css/home.scss";
 import logo from '../assets/w4mLogo.png';
-import { link } from '../assets/url.json';
+
 import "../css/homeCompany.scss";
 import myphoto from '../assets/userDefault.png';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -30,7 +30,7 @@ export default class Applications extends Component {
     }
 
     fetchApplications() {
-        fetch(`${link}/applications/requests`, {
+        fetch(`/api/applications/requests`, {
             method: 'POST',
             body: JSON.stringify({ idVacancy: this.props.match.params.idVacant }),
             headers: {
@@ -54,7 +54,7 @@ export default class Applications extends Component {
     }
 
     updateStatus(status, id) {
-        fetch(`${link}/applications/edit`, {
+        fetch(`/api/applications/edit`, {
             method: 'PUT',
             body: JSON.stringify({ idApplication: id, approved: status }),
             headers: {

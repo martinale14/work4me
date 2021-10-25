@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
 import "../css/register.scss";
 import Input from './Input';
-import { link } from '../assets/url.json';
+
 
 
 export default class ProfileCompany extends Component {
@@ -21,14 +21,14 @@ export default class ProfileCompany extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.fetchMyData(nextProps.id);
         this.setState()
     }
 
     fetchMyData(id) {
         id = id ? id : this.props.id
-        fetch(`${link}/userCompany/${id}`, {
+        fetch(`/api/userCompany/${id}`, {
             method: 'POST',
             body: JSON.stringify({
                 "id": id

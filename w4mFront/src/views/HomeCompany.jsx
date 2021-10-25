@@ -4,7 +4,7 @@ import "../css/home.scss";
 import "../css/homeCompany.scss";
 import logo from '../assets/w4mLogo.png';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { link } from '../assets/url.json';
+
 import TextField from '@material-ui/core/TextField';
 import Btn from '../components/Btn';
 import Input from '../components/Input';
@@ -51,7 +51,7 @@ export default class HomeCompany extends Component {
     }
 
     fetchCities() {
-        fetch(`${link}/cities`)
+        fetch(`/api/cities`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ cities: data });
@@ -60,7 +60,7 @@ export default class HomeCompany extends Component {
     }
 
     fetchVacancies() {
-        fetch(`${link}/vacancies/mine`, {
+        fetch(`/api/vacancies/mine`, {
             method: 'POST',
             body: JSON.stringify({ idCompany: this.props.match.params.id }),
             headers: {
@@ -79,7 +79,7 @@ export default class HomeCompany extends Component {
     }
 
     fetchCategories() {
-        fetch(`${link}/categories`)
+        fetch(`/api/categories`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ categories: data });
@@ -144,7 +144,7 @@ export default class HomeCompany extends Component {
                                 this.props.history.push(`/Home/company/applications/${element.idVacant}/${this.props.match.params.id}`);
                             }}
                             onClickDelete={() => {
-                                fetch(`${link}/vacancies/delete`, {
+                                fetch(`/api/vacancies/delete`, {
                                     method: 'DELETE',
                                     body: JSON.stringify({
                                         idVacant: element.idVacant
@@ -230,7 +230,7 @@ export default class HomeCompany extends Component {
                                     request.idCity = this.state.idCity;
                                 }
 
-                                fetch(`${link}/vacancies/add`, {
+                                fetch(`/api/vacancies/add`, {
                                     method: 'POST',
                                     body: JSON.stringify(request),
                                     headers: {
@@ -257,7 +257,7 @@ export default class HomeCompany extends Component {
                     }} className="filter" text="Publish" />
                     <Btn id="signOut" onClick={() => {
                         console.log("hola");
-                        fetch(`${link}/logout`)
+                        fetch(`/api/logout`)
                             .then(res => res.text())
                             .then(data => {
                                 if (data === "Desconectado") {

@@ -6,7 +6,7 @@ import "../css/login.scss";
 import Input from '../components/Input';
 import Btn from '../components/Btn';
 import RaisedButton from '../components/RaisedButton';
-import url from '../assets/url.json';
+
 
 export default class Login extends Component {
 
@@ -60,7 +60,7 @@ export default class Login extends Component {
 
   login() {
     if (this.state.email !== '' && this.state.password !== '') {
-      fetch(`${url.link}/login`, {
+      fetch(`/api/login`, {
         method: 'POST',
         body: JSON.stringify({ email: this.state.email, password: this.state.password }),
         headers: {
@@ -72,12 +72,12 @@ export default class Login extends Component {
           console.log(data.msg);
           this.setState({ email: '', password: '' });
           if (data.msg === 'Conectado') {
-            if(data.idCandidate){
+            if (data.idCandidate) {
               this.props.history.push(`/Home/candidate/${data.idCandidate}`);
-            }else{
+            } else {
               this.props.history.push(`/Home/company/${data.tin}`);
             }
-          }else{
+          } else {
             alert(data.msg)
           }
         })

@@ -4,7 +4,7 @@ import "../css/home.scss";
 import logo from '../assets/w4mLogo.png';
 import Slider from '../components/Slider';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { link } from '../assets/url.json';
+
 import TextField from '@material-ui/core/TextField';
 import Btn from '../components/Btn';
 import FormatIndentIncreaseIcon from '@material-ui/icons/FormatIndentIncrease';
@@ -76,7 +76,7 @@ export default class Home extends Component {
     }
 
     apply() {
-        fetch(`${link}/applications/add`, {
+        fetch(`/api/applications/add`, {
             method: 'POST',
             body: JSON.stringify({
                 "idVacant": this.state.idVacant,
@@ -94,7 +94,7 @@ export default class Home extends Component {
     }
 
     fetchCities() {
-        fetch(`${link}/cities`)
+        fetch(`/api/cities`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ cities: data });
@@ -103,7 +103,7 @@ export default class Home extends Component {
     }
 
     fetchVacancies() {
-        fetch(`${link}/vacancies`)
+        fetch(`/api/vacancies`)
             .then(res => res.json())
             .then(data => {
                 this.setState({
@@ -115,7 +115,7 @@ export default class Home extends Component {
     }
 
     fetchApplications() {
-        fetch(`${link}/applications`, {
+        fetch(`/api/applications`, {
             method: 'POST',
             body: JSON.stringify({ idCandidate: this.props.match.params.id }),
             headers: {
@@ -134,7 +134,7 @@ export default class Home extends Component {
     }
 
     fetchCategories() {
-        fetch(`${link}/categories`)
+        fetch(`/api/categories`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ categories: data });
@@ -200,7 +200,7 @@ export default class Home extends Component {
                         <p>Applications</p>
                     </div>
                     <Btn id="signOut" onClick={() => {
-                        fetch(`${link}/logout`)
+                        fetch(`/api/logout`)
                             .then(res => res.text())
                             .then(data => {
                                 if (data === "Desconectado") {
@@ -297,7 +297,7 @@ export default class Home extends Component {
                                 rb.setAttribute('style', `display: none !important`);
                             }}
                             onClick={() => {
-                                fetch(`${link}/applications/delete`, {
+                                fetch(`/api/applications/delete`, {
                                     method: 'DELETE',
                                     body: JSON.stringify({ idApplication: element.idApplication }),
                                     headers: {
@@ -375,7 +375,7 @@ export default class Home extends Component {
                         filterBody.maxSalary = (this.state.value[1] !== 100) ? this.state.value[1] * 1000000 : null;
 
                         if (filterBody.city || filterBody.category || filterBody.maxSalary || filterBody.minSalary) {
-                            fetch(`${link}/vacancies/filter`, {
+                            fetch(`/api/vacancies/filter`, {
                                 method: 'POST',
                                 body: JSON.stringify(filterBody),
                                 headers: {

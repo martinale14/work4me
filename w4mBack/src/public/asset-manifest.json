@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e12c36fa.chunk.css",
+    "main.js": "/static/js/main.f5a30124.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.be3995a5.js",
+    "static/js/2.f12fb09f.chunk.js": "/static/js/2.f12fb09f.chunk.js",
+    "index.html": "/index.html",
+    "static/js/2.f12fb09f.chunk.js.LICENSE.txt": "/static/js/2.f12fb09f.chunk.js.LICENSE.txt",
+    "static/media/BackDesignAritos.55cb8609.png": "/static/media/BackDesignAritos.55cb8609.png",
+    "static/media/BackDesignLogin.7cf0fe5b.png": "/static/media/BackDesignLogin.7cf0fe5b.png",
+    "static/media/index.css": "/static/media/Poppins-Regular.8081832f.ttf",
+    "static/media/index.75686ea5.jpg": "/static/media/index.75686ea5.jpg",
+    "static/media/w4mLogo.2c623bcb.png": "/static/media/w4mLogo.2c623bcb.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.be3995a5.js",
+    "static/js/2.f12fb09f.chunk.js",
+    "static/css/main.e12c36fa.chunk.css",
+    "static/js/main.f5a30124.chunk.js"
+  ]
+}

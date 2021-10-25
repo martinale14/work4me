@@ -5,7 +5,7 @@ import "../css/register.scss";
 import '../css/homeCompany.scss'
 import RaisedButton from '../components/RaisedButton';
 import Input from '../components/Input';
-import { link } from '../assets/url.json';
+
 import InputMultiline from '../components/InputMultiline';
 
 export default class ProfileApplicants extends Component {
@@ -34,13 +34,13 @@ export default class ProfileApplicants extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.fetchMyData(nextProps.id);
         this.setState()
     }
 
     fetchCities() {
-        fetch(`${link}/cities`)
+        fetch(`/api/cities`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ cities: data });
@@ -50,7 +50,7 @@ export default class ProfileApplicants extends Component {
 
     fetchMyData(id) {
         id = id ? id : this.props.id
-        fetch(`${link}/userCandidate/${id}`, {
+        fetch(`/api/userCandidate/${id}`, {
             method: 'POST',
             body: JSON.stringify({
                 "id": id
@@ -85,7 +85,7 @@ export default class ProfileApplicants extends Component {
     }
 
     updateCandidate() {
-        fetch(`${link}/register/candidate/edit`, {
+        fetch(`/api/register/candidate/edit`, {
             method: 'PUT',
             body: JSON.stringify({
                 "email": this.state.email,
@@ -139,10 +139,10 @@ export default class ProfileApplicants extends Component {
                 <div className="inpPro multi">
                     <InputMultiline id="id" type="text" placeholder="Description" className="multi2" value={this.state.description} onChange={(data) => this.setState({ description: data.target.value })} />
                     {
-                    this.props.edit ?
-                        <div id="submit" className="submitPro">
-                            <RaisedButton text="Update" onClick={() => { this.updateCandidate() }} />
-                        </div> : null
+                        this.props.edit ?
+                            <div id="submit" className="submitPro">
+                                <RaisedButton text="Update" onClick={() => { this.updateCandidate() }} />
+                            </div> : null
                     }
                 </div>
             </div>

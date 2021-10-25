@@ -1,6 +1,6 @@
 import { React, Component } from 'react';
 import myphoto from '../assets/userDefault.png';
-import { link } from '../assets/url.json';
+
 import ReactRoundedImage from "react-rounded-image";
 
 export default class Prueba extends Component {
@@ -14,7 +14,7 @@ export default class Prueba extends Component {
 
     fetchPhoto = () => {
 
-        fetch(`${link}/user/${this.props.match.params.id}`)
+        fetch(`/api/user/${this.props.match.params.id}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data.profilePic)
