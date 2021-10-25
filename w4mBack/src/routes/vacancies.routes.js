@@ -4,7 +4,7 @@ const pool = require('../database');
 
 router.get('/', async (req, res) => {
 
-    let rows = await pool.query('SELECT * FROM getVacancies');
+    let rows = await pool.query('SELECT * FROM getvacancies');
 
     (rows.length > 0) ? res.json(rows) : res.json({ msg: 'There are no available vacancies' });;
 
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 
 router.post('/mine', async (req, res) => {
 
-    let rows = await pool.query(`SELECT * FROM getVacancies WHERE idCompanyfk = ?`, [req.body.idCompany]);
+    let rows = await pool.query(`SELECT * FROM getvacancies WHERE idCompanyfk = ?`, [req.body.idCompany]);
     (rows.length > 0) ? res.json(rows) : res.json({ msg: 'There are no available vacancies' });
 
 });
